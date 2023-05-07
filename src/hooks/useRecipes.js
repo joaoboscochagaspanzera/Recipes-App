@@ -24,6 +24,7 @@ export function RecipesProvider({ children }) {
     recipes,
     setRecipes,
   }), [recipes]);
+
   return (
     <RecipesContext.Provider value={ value }>
       {children}
