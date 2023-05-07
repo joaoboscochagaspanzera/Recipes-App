@@ -7,9 +7,11 @@ import { RecipesFilterBar } from '../components/Recipes/RecipesFilterBar';
 
 import { getRecipes, MEAL_API_BASE_URL, useRecipes } from '../hooks/useRecipes';
 import { useFetch } from '../hooks/useFetch';
+import { useUser } from '../hooks/useUser';
 
 function Meals() {
   const { recipes: { meals }, setRecipes } = useRecipes();
+  const { user } = useUser();
 
   const { fetchData } = useFetch();
 
@@ -21,11 +23,10 @@ function Meals() {
     })
       .then((data) => setRecipes({ meals: data, drinks: [] }))
       .catch((err) => err);
-
-    return setRecipes([]);
   }, [fetchData, setRecipes]);
 
   console.log(meals, 'meals');
+  console.log(user, 'user');
   return (
     <>
       <Header />

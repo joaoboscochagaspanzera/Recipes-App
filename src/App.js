@@ -1,12 +1,14 @@
 import React from 'react';
-import { RecipesProvider } from './hooks/useRecipes';
+
+import { AppProvider } from './contexts/AppProvider';
+
 import { Routes } from './routes';
 
 function App() {
   return (
-    <RecipesProvider>
+    <AppProvider>
       <Routes />
-    </RecipesProvider>
+    </AppProvider>
   );
 }
 

@@ -7,9 +7,11 @@ import { RecipesFeed } from '../components/Recipes/RecipesFeed';
 
 import { useFetch } from '../hooks/useFetch';
 import { DRINK_API_BASE_URL, getRecipes, useRecipes } from '../hooks/useRecipes';
+import { useUser } from '../hooks/useUser';
 
 function Drinks() {
   const { recipes: { drinks }, setRecipes } = useRecipes();
+  const { user } = useUser();
 
   const { fetchData } = useFetch();
 
@@ -24,6 +26,7 @@ function Drinks() {
   }, [fetchData, setRecipes]);
 
   console.log(drinks, 'drinks');
+  console.log(user, 'user');
   return (
     <>
       <Header />
