@@ -5,7 +5,7 @@ import { renderWithRouter } from './helpers/renderWithRouter';
 
 test('Farewell, front-end', () => {
   // Este arquivo pode ser modificado ou deletado sem problemas
-  renderWithRouter(<App />);
+  renderWithRouter(<App />, { location: '/' });
   const linkElement = screen.getByText(/Login/i);
   expect(linkElement).toBeInTheDocument();
 });
