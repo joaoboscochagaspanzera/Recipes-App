@@ -36,6 +36,16 @@ export const getRecipes = async ({ fetcher, url, recipeType }) => {
   return recipes;
 };
 
+export const getRecipeDetail = async ({ fetcher, id, recipeType }) => {
+  const url = `${getBaseUrl(recipeType)}/lookup.php?i=${id}`;
+
+  const data = await fetcher(url);
+
+  const recipe = data[recipeType] ? data[recipeType][0] : null;
+
+  return mapRecipe(recipe, recipeType);
+};
+
 export const getRecipeCategories = async ({ fetcher, url, recipeType }) => {
   const totalCategories = 5;
   const data = await fetcher(url);

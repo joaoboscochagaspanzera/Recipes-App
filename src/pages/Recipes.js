@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import propTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 
 import { Footer } from '../components/Shared/Footer';
 import { Header } from '../components/Shared/Header';
@@ -14,7 +14,10 @@ import {
 } from '../hooks/useRecipes';
 import { useUser } from '../hooks/useUser';
 
-function Recipes({ recipeType }) {
+function Recipes() {
+  const { pathname } = useLocation();
+  const recipeType = pathname.split('/')[1];
+
   const { recipes, setRecipes, setRecipeType } = useRecipes();
 
   const { user } = useUser();
@@ -49,9 +52,5 @@ function Recipes({ recipeType }) {
     </>
   );
 }
-
-Recipes.propTypes = {
-  recipeType: propTypes.string.isRequired,
-};
 
 export { Recipes };
