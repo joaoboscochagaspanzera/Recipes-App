@@ -1,12 +1,12 @@
 footer {
-  position: fixed;
+  background: #41197f;
+  bottom: 0;
   display: flex;
-  justify-content: space-between;
-  bottom: 0px;
-  width: 360px;
   height: 52px;
-  left: 0px;
-  background: #41197F;
+  justify-content: space-between;
+  left: 0;
+  position: fixed;
+  width: 360px;
 }
 
 .meal-icon {
