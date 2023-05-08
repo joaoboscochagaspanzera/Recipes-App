@@ -6,11 +6,20 @@ import { useFetch } from '../../hooks/useFetch';
 
 function RecipesFilterItem({ category }) {
   const { fetchData } = useFetch();
-  const { recipeType, setRecipes } = useRecipes();
+  const {
+    recipeType,
+    setRecipes,
+    categoryFilterSelected,
+    setCategoryFilterSelected,
+  } = useRecipes();
+
+  const endPoint = (category === 'All' || category === categoryFilterSelected)
+    ? '/search.php?s='
+    : `/filter.php?c=${category}`;
 
   const url = `${getBaseUrl(
     recipeType,
-  )}${category === 'All' ? '/search.php?s=' : `/filter.php?c=${category}`}`;
+  )}${endPoint}`;
 
   const handleClickFilterButton = useCallback(() => {
     getRecipes({
@@ -18,8 +27,12 @@ function RecipesFilterItem({ category }) {
       recipeType,
       url,
     })
-      .then((data) => setRecipes({ [recipeType]: data }));
-  }, [fetchData, recipeType, setRecipes, url]);
+      .then((data) => {
+        setCategoryFilterSelected(category);
+        setRecipes({ [recipeType]: data });
+      })
+      .catch((err) => console.log(err));
+  }, [category, fetchData, recipeType, setCategoryFilterSelected, setRecipes, url]);
 
   return (
     <button

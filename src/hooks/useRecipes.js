@@ -53,13 +53,16 @@ export function RecipesProvider({ children }) {
     meals: [],
   });
   const [recipeType, setRecipeType] = useState('');
+  const [categoryFilterSelected, setCategoryFilterSelected] = useState('All');
 
   const value = useMemo(() => ({
     recipes,
     setRecipes,
     recipeType,
     setRecipeType,
-  }), [recipeType, recipes]);
+    categoryFilterSelected,
+    setCategoryFilterSelected,
+  }), [categoryFilterSelected, recipeType, recipes]);
 
   return (
     <RecipesContext.Provider value={ value }>

@@ -22,7 +22,6 @@ function Recipes({ recipeType }) {
   const { fetchData } = useFetch();
 
   useEffect(() => {
-    console.log('setou recipeType');
     setRecipeType(recipeType);
   }, [recipeType, setRecipeType]);
 
