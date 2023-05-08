@@ -1,7 +1,7 @@
 import { createContext, useContext, useMemo } from 'react';
 import propTypes from 'prop-types';
 
-import useLocalStorage from './useLocalStorage';
+import { useLocalStorage } from './useLocalStorage';
 
 const UserContext = createContext();
 
