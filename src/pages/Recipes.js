@@ -31,8 +31,7 @@ function Recipes({ recipeType }) {
       recipeType,
       url: `${getBaseUrl(recipeType)}/search.php?s=`,
     })
-      .then((data) => setRecipes({ [recipeType]: data }))
-      .catch((err) => console.log(err));
+      .then((data) => setRecipes({ [recipeType]: data }));
 
     return setRecipes({ drinks: [], meals: [] });
   }, [fetchData, recipeType, setRecipes]);
