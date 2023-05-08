@@ -1,5 +1,13 @@
-function RecipesFilterItem() {
-  return (<h1>RecipesFilterItem</h1>);
+import propTypes from 'prop-types';
+
+function RecipesFilterItem({ category }) {
+  return (
+    <button data-testid={ `${category}-category-filter` }>{category}</button>
+  );
 }
+
+RecipesFilterItem.propTypes = {
+  category: propTypes.string.isRequired,
+};
 
 export { RecipesFilterItem };
