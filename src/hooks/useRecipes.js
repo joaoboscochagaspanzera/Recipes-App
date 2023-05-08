@@ -52,11 +52,14 @@ export function RecipesProvider({ children }) {
     drinks: [],
     meals: [],
   });
+  const [recipeType, setRecipeType] = useState('');
 
   const value = useMemo(() => ({
     recipes,
     setRecipes,
-  }), [recipes]);
+    recipeType,
+    setRecipeType,
+  }), [recipeType, recipes]);
 
   return (
     <RecipesContext.Provider value={ value }>
