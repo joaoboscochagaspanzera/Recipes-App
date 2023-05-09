@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import propTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 
 import { Footer } from '../components/Shared/Footer';
 import { Header } from '../components/Shared/Header';
@@ -14,10 +14,14 @@ import {
 } from '../hooks/useRecipes';
 import { useUser } from '../hooks/useUser';
 
-function Recipes({ recipeType }) {
+function Recipes() {
+  const { pathname } = useLocation();
+  const recipeType = pathname.split('/')[1];
+
   const { recipes, setRecipes, setRecipeType } = useRecipes();
 
   const { user } = useUser();
+  console.log(user);
 
   const { fetchData } = useFetch();
 
@@ -31,13 +35,8 @@ function Recipes({ recipeType }) {
       recipeType,
       url: `${getBaseUrl(recipeType)}/search.php?s=`,
     })
-      .then((data) => setRecipes({ [recipeType]: data }));
-
-    return setRecipes({ drinks: [], meals: [] });
+      .then((data) => setRecipes((prevState) => ({ ...prevState, [recipeType]: data })));
   }, [fetchData, recipeType, setRecipes]);
-
-  console.log(recipes[recipeType], 'recipes', recipeType);
-  console.log(user, 'user');
 
   return (
     <>
@@ -49,9 +48,5 @@ function Recipes({ recipeType }) {
     </>
   );
 }
-
-Recipes.propTypes = {
-  recipeType: propTypes.string.isRequired,
-};
 
 export { Recipes };
