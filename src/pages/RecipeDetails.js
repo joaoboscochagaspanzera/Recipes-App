@@ -24,6 +24,10 @@ function RecipeDetails({ inProgress = false }) {
   const { setRecipeType, recommendedRecipes, setRecommendedRecipes } = useRecipes();
   const { fetchData } = useFetch();
   const [storagedDoneRecipes] = useLocalStorage('doneRecipes', []);
+  const [storagedInProgessRecipes] = useLocalStorage(
+    'inProgressRecipes',
+    { drinks: {}, meals: {} },
+  );
 
   useEffect(() => {
     setRecipeType(recipeType);
@@ -52,6 +56,10 @@ function RecipeDetails({ inProgress = false }) {
 
   const recipeIsFinished = storagedDoneRecipes.find(
     (finishRecipe) => finishRecipe.id === id,
+  );
+
+  const recipeIsInProgress = Object.keys(storagedInProgessRecipes[recipeType]).find(
+    ((inProgressRecipe) => inProgressRecipe === id),
   );
 
   return (
@@ -109,7 +117,7 @@ function RecipeDetails({ inProgress = false }) {
               bottom: 0,
             } }
           >
-            Start Recipe
+            { recipeIsInProgress ? 'Continue Recipe' : 'Start Recipe'}
           </button>
         )}
       </>
