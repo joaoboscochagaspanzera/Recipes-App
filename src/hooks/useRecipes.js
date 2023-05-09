@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 
 export const MEAL_API_BASE_URL = 'https://www.themealdb.com/api/json/v1/1';
 export const DRINK_API_BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1';
+const TOTAL_RECIPES = 12;
 
 export const RecipesContext = createContext();
 
@@ -14,19 +15,39 @@ export const getBaseUrl = (recipeType) => `${
     : MEAL_API_BASE_URL
 }`;
 
-const mapRecipe = (recipe, recipeType) => {
+export const mapRecipe = (recipe, recipeType) => {
+  const MAX_INGREDIENTS = 20;
   const stringRecipeId = recipeType === 'meals' ? recipe.idMeal : recipe.idDrink;
+
+  const ingredients = Array.from({ length: MAX_INGREDIENTS }, (_, i) => i + 1).map(
+    (index) => ({
+      ingredientName: recipe[`strIngredient${index}`],
+      ingredientMensure: recipe[`strMeasure${index}`],
+    }),
+  ).filter(({ ingredientName }) => !!ingredientName);
+
   return ({
     id: Number(stringRecipeId),
     name: recipeType === 'meals' ? recipe.strMeal : recipe.strDrink,
-    img_url: recipeType === 'meals' ? recipe.strMealThumb : recipe.strDrinkThumb,
+    image: recipeType === 'meals' ? recipe.strMealThumb : recipe.strDrinkThumb,
+    category: recipe.strCategory,
+    ingredients,
+    instruction: recipe.strInstructions,
+    video_url: recipe.strYoutube ? recipe.strYoutube.replace('watch?v=', 'embed/') : null,
+    type: recipeType,
+    nationality: recipe.strArea || '',
+    alcoholicOrNot: recipe.strAlcoholic || '',
   });
 };
 
 const mapRecipeCategory = (category) => (category.strCategory);
 
-export const getRecipes = async ({ fetcher, url, recipeType }) => {
-  const totalRecipes = 12;
+export const getRecipes = async ({
+  fetcher,
+  url,
+  recipeType,
+  totalRecipes = TOTAL_RECIPES,
+}) => {
   const data = await fetcher(url);
 
   let recipes = data[recipeType].slice(0, totalRecipes);
@@ -34,6 +55,16 @@ export const getRecipes = async ({ fetcher, url, recipeType }) => {
   recipes = recipes.map((recipe) => mapRecipe(recipe, recipeType));
 
   return recipes;
+};
+
+export const getRecipeDetail = async ({ fetcher, id, recipeType }) => {
+  const url = `${getBaseUrl(recipeType)}/lookup.php?i=${id}`;
+
+  const data = await fetcher(url);
+
+  const recipe = data[recipeType] ? data[recipeType][0] : null;
+
+  return mapRecipe(recipe, recipeType);
 };
 
 export const getRecipeCategories = async ({ fetcher, url, recipeType }) => {
@@ -52,17 +83,20 @@ export function RecipesProvider({ children }) {
     drinks: [],
     meals: [],
   });
+  const [recommendedRecipes, setRecommendedRecipes] = useState([]);
   const [recipeType, setRecipeType] = useState('');
   const [categoryFilterSelected, setCategoryFilterSelected] = useState('All');
 
   const value = useMemo(() => ({
     recipes,
     setRecipes,
+    recommendedRecipes,
+    setRecommendedRecipes,
     recipeType,
     setRecipeType,
     categoryFilterSelected,
     setCategoryFilterSelected,
-  }), [categoryFilterSelected, recipeType, recipes]);
+  }), [categoryFilterSelected, recipeType, recipes, recommendedRecipes]);
 
   return (
     <RecipesContext.Provider value={ value }>
