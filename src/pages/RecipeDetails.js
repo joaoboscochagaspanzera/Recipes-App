@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import propTypes from 'prop-types';
 import Carousel from 'react-bootstrap/Carousel';
+import copyToClipboard from 'clipboard-copy';
 
 import { RecipeDetailHeader } from '../components/Recipes/RecipeDetailHeader';
 import { RecipesCard } from '../components/Recipes/RecipesCard';
+
+import shareIcon from '../images/shareIcon.svg';
 
 import { getBaseUrl, getRecipeDetail, getRecipes, useRecipes } from '../hooks/useRecipes';
 import { useFetch } from '../hooks/useFetch';
@@ -14,6 +17,7 @@ import { useLocalStorage } from '../hooks/useLocalStorage';
 function RecipeDetails({ inProgress = false }) {
   console.log(inProgress);
   const [recipe, setRecipe] = useState();
+  const [linkWasCopyToClipboard, setLinkWasCopyToClipboard] = useState(false);
 
   const { id } = useParams();
   const { pathname } = useLocation();
@@ -28,6 +32,11 @@ function RecipeDetails({ inProgress = false }) {
     'inProgressRecipes',
     { drinks: {}, meals: {} },
   );
+
+  const handleClickShareButton = useCallback(() => {
+    setLinkWasCopyToClipboard(true);
+    copyToClipboard(window.location.href);
+  }, []);
 
   useEffect(() => {
     setRecipeType(recipeType);
@@ -114,13 +123,23 @@ function RecipeDetails({ inProgress = false }) {
             style={ {
               position: 'fixed',
               bottom: 0,
+              right: '50%',
             } }
           >
             { recipeInProgress ? 'Continue Recipe' : 'Start Recipe'}
           </Link>
         )}
-        <button data-testid="share-btn">Compartilhar</button>
+        <button
+          data-testid="share-btn"
+          onClick={ handleClickShareButton }
+        >
+          <img src={ shareIcon } alt="share icon" />
+          Compartilhar
+        </button>
         <button data-testid="favorite-btn">Favoritar</button>
+        { linkWasCopyToClipboard && (
+          <p>Link copied!</p>
+        )}
       </>
     )
   );
