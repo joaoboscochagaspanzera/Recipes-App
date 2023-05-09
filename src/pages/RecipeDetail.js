@@ -95,7 +95,15 @@ function RecipeDetail({ inProgress = false }) {
             </Carousel.Item>
           ))}
         </Carousel>
-        ;
+        <button
+          data-testid="start-recipe-btn"
+          style={ {
+            position: 'fixed',
+            bottom: 0,
+          } }
+        >
+          Start Recipe
+        </button>
       </>
     )
   );
