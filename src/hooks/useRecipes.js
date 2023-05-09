@@ -15,11 +15,24 @@ export const getBaseUrl = (recipeType) => `${
 }`;
 
 const mapRecipe = (recipe, recipeType) => {
+  const MAX_INGREDIENTS = 20;
   const stringRecipeId = recipeType === 'meals' ? recipe.idMeal : recipe.idDrink;
+
+  const ingredients = Array.from({ length: MAX_INGREDIENTS }, (_, i) => i + 1).map(
+    (index) => ({
+      ingredientName: recipe[`strIngredient${index}`],
+      ingredientMensure: recipe[`strMeasure${index}`],
+    }),
+  ).filter(({ ingredientName }) => !!ingredientName);
+
   return ({
     id: Number(stringRecipeId),
     name: recipeType === 'meals' ? recipe.strMeal : recipe.strDrink,
     img_url: recipeType === 'meals' ? recipe.strMealThumb : recipe.strDrinkThumb,
+    category: recipeType === 'meals' ? recipe.strCategory : recipe.strAlcoholic,
+    ingredients,
+    instruction: recipe.strInstructions,
+    video_url: recipe.strYoutube ? recipe.strYoutube.replace('watch?v=', 'embed/') : null,
   });
 };
 

@@ -34,14 +34,40 @@ function RecipeDetail({ inProgress = false }) {
   console.log('in-progress: ', inProgress);
   console.log(recipe, 'recipe');
   return (
-    <>
-      <RecipeDetailHeader />
-      <h1>
-        RecipeDetail =
-        {' '}
-        {id}
-      </h1>
-    </>
+    recipe && (
+      <>
+        <RecipeDetailHeader recipe={ recipe } />
+        <h1>
+          RecipeDetail =
+          {' '}
+          {id}
+        </h1>
+        { recipe.ingredients.map(({ ingredientName, ingredientMensure }, index) => (
+          <p
+            key={ index }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
+            {ingredientMensure && (
+              <>
+                {ingredientMensure}
+                {' '}
+              </>
+            )}
+            {ingredientName}
+          </p>
+        )) }
+        <p data-testid="instructions">{ recipe.instruction }</p>
+        {recipeType === 'meals' && (
+          <embed
+            type="video/webm"
+            src={ recipe.video_url }
+            width="250"
+            height="200"
+            data-testid="video"
+          />
+        )}
+      </>
+    )
   );
 }
 
