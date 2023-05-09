@@ -8,6 +8,8 @@ import { RecipeDetailHeader } from '../components/Recipes/RecipeDetailHeader';
 import { RecipesCard } from '../components/Recipes/RecipesCard';
 
 import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 import { getBaseUrl, getRecipeDetail, getRecipes, useRecipes } from '../hooks/useRecipes';
 import { useFetch } from '../hooks/useFetch';
@@ -88,6 +90,10 @@ function RecipeDetails({ inProgress = false }) {
     ? storagedInProgessRecipes[recipeType][id]
     : null;
 
+  const recipeIsFavorite = storagedFavoritedRecipes.find(
+    (favoritedRecipe) => favoritedRecipe.id === id,
+  );
+
   return (
     recipe && (
       <>
@@ -158,7 +164,12 @@ function RecipeDetails({ inProgress = false }) {
         <button
           onClick={ handleClickFavoriteRecipeButton }
           data-testid="favorite-btn"
+          src={ recipeIsFavorite ? blackHeartIcon : whiteHeartIcon }
         >
+          <img
+            src={ recipeIsFavorite ? blackHeartIcon : whiteHeartIcon }
+            alt="heart"
+          />
           Favoritar
         </button>
         { linkWasCopyToClipboard && (
