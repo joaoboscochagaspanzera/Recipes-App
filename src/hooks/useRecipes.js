@@ -29,12 +29,14 @@ const mapRecipe = (recipe, recipeType) => {
   return ({
     id: Number(stringRecipeId),
     name: recipeType === 'meals' ? recipe.strMeal : recipe.strDrink,
-    img_url: recipeType === 'meals' ? recipe.strMealThumb : recipe.strDrinkThumb,
-    category: recipeType === 'meals' ? recipe.strCategory : recipe.strAlcoholic,
+    image: recipeType === 'meals' ? recipe.strMealThumb : recipe.strDrinkThumb,
+    category: recipe.strCategory,
     ingredients,
     instruction: recipe.strInstructions,
     video_url: recipe.strYoutube ? recipe.strYoutube.replace('watch?v=', 'embed/') : null,
     type: recipeType,
+    nationality: recipe.strArea || '',
+    alcoholicOrNot: recipe.strAlcoholic || '',
   });
 };
 

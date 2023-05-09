@@ -17,7 +17,7 @@ function RecipesCard({ recipe, index, isRecommended = false }) {
 
       </p>
       <img
-        src={ recipe.img_url }
+        src={ recipe.image }
         alt={ recipe.name }
         data-testid={ `${index}-card-img` }
       />

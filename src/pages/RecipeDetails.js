@@ -28,6 +28,10 @@ function RecipeDetails({ inProgress = false }) {
   const { setRecipeType, recommendedRecipes, setRecommendedRecipes } = useRecipes();
   const { fetchData } = useFetch();
   const [storagedDoneRecipes] = useLocalStorage('doneRecipes', []);
+  const [storagedFavoritedRecipes, setStoragedFavoritedRecipes] = useLocalStorage(
+    'favoriteRecipes',
+    [],
+  );
   const [storagedInProgessRecipes] = useLocalStorage(
     'inProgressRecipes',
     { drinks: {}, meals: {} },
@@ -37,6 +41,19 @@ function RecipeDetails({ inProgress = false }) {
     setLinkWasCopyToClipboard(true);
     copyToClipboard(window.location.href);
   }, []);
+
+  const handleClickFavoriteRecipeButton = useCallback(() => {
+    const recipeToStorage = {
+      id: String(recipe.id),
+      type: recipe.type.substr(0, recipe.type.length - 1),
+      nationality: recipe.nationality,
+      category: recipe.category,
+      alcoholicOrNot: recipe.alcoholicOrNot,
+      name: recipe.name,
+      image: recipe.image,
+    };
+    setStoragedFavoritedRecipes([...storagedFavoritedRecipes, recipeToStorage]);
+  }, [recipe, setStoragedFavoritedRecipes, storagedFavoritedRecipes]);
 
   useEffect(() => {
     setRecipeType(recipeType);
@@ -67,7 +84,9 @@ function RecipeDetails({ inProgress = false }) {
     (finishRecipe) => finishRecipe.id === id,
   );
 
-  const recipeInProgress = storagedInProgessRecipes[recipeType][id];
+  const recipeInProgress = storagedInProgessRecipes[recipeType]
+    ? storagedInProgessRecipes[recipeType][id]
+    : null;
 
   return (
     recipe && (
@@ -136,7 +155,12 @@ function RecipeDetails({ inProgress = false }) {
           <img src={ shareIcon } alt="share icon" />
           Compartilhar
         </button>
-        <button data-testid="favorite-btn">Favoritar</button>
+        <button
+          onClick={ handleClickFavoriteRecipeButton }
+          data-testid="favorite-btn"
+        >
+          Favoritar
+        </button>
         { linkWasCopyToClipboard && (
           <p>Link copied!</p>
         )}

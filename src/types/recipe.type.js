@@ -6,12 +6,14 @@ export const recipeIngredientPropType = propTypes.shape({
 });
 
 export const recipePropType = propTypes.shape({
-  id: propTypes.number.isRequired,
-  name: propTypes.string.isRequired,
-  img_url: propTypes.string.isRequired,
-  category: propTypes.string.isRequired,
-  ingredients: propTypes.arrayOf(recipeIngredientPropType).isRequired,
-  instruction: propTypes.string.isRequired,
+  id: propTypes.number,
+  name: propTypes.string,
+  image: propTypes.string,
+  category: propTypes.string,
+  ingredients: propTypes.arrayOf(recipeIngredientPropType),
+  instruction: propTypes.string,
   video_url: propTypes.string,
   type: propTypes.string,
+  nationality: propTypes.string,
+  alcoholicOrNot: propTypes.string,
 });
