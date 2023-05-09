@@ -4,8 +4,7 @@ import { Footer } from '../components/Shared/Footer';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
 function Profile() {
-  const [storagedUser] = useLocalStorage('user');
-
+  const [storagedUser] = useLocalStorage('user', { email: '' });
   return (
     <>
       <Header />
