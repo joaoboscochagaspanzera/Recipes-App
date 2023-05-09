@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 
 export const MEAL_API_BASE_URL = 'https://www.themealdb.com/api/json/v1/1';
 export const DRINK_API_BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1';
+const TOTAL_RECIPES = 12;
 
 export const RecipesContext = createContext();
 
@@ -33,13 +34,18 @@ const mapRecipe = (recipe, recipeType) => {
     ingredients,
     instruction: recipe.strInstructions,
     video_url: recipe.strYoutube ? recipe.strYoutube.replace('watch?v=', 'embed/') : null,
+    type: recipeType,
   });
 };
 
 const mapRecipeCategory = (category) => (category.strCategory);
 
-export const getRecipes = async ({ fetcher, url, recipeType }) => {
-  const totalRecipes = 12;
+export const getRecipes = async ({
+  fetcher,
+  url,
+  recipeType,
+  totalRecipes = TOTAL_RECIPES,
+}) => {
   const data = await fetcher(url);
 
   let recipes = data[recipeType].slice(0, totalRecipes);

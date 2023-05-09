@@ -21,6 +21,7 @@ function Recipes() {
   const { recipes, setRecipes, setRecipeType } = useRecipes();
 
   const { user } = useUser();
+  console.log(user);
 
   const { fetchData } = useFetch();
 
@@ -35,12 +36,8 @@ function Recipes() {
       url: `${getBaseUrl(recipeType)}/search.php?s=`,
     })
       .then((data) => setRecipes({ [recipeType]: data }));
-
     return setRecipes({ drinks: [], meals: [] });
   }, [fetchData, recipeType, setRecipes]);
-
-  console.log(recipes[recipeType], 'recipes', recipeType);
-  console.log(user, 'user');
 
   return (
     <>

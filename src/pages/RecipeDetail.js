@@ -1,22 +1,26 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import propTypes from 'prop-types';
+import Carousel from 'react-bootstrap/Carousel';
 
 import { RecipeDetailHeader } from '../components/Recipes/RecipeDetailHeader';
+import { RecipesCard } from '../components/Recipes/RecipesCard';
 
 import { getBaseUrl, getRecipeDetail, getRecipes, useRecipes } from '../hooks/useRecipes';
 import { useFetch } from '../hooks/useFetch';
+import { chunkArray } from '../utils/chunckArray';
 
 function RecipeDetail({ inProgress = false }) {
+  console.log(inProgress);
+  const [recipe, setRecipe] = useState();
+
   const { id } = useParams();
   const { pathname } = useLocation();
 
   const recipeType = pathname.split('/')[1];
   const recommendedRecipesType = recipeType === 'meals' ? 'drinks' : 'meals';
 
-  const [recipe, setRecipe] = useState();
-
-  const { setRecipeType, setRecommendedRecipes } = useRecipes();
+  const { setRecipeType, recommendedRecipes, setRecommendedRecipes } = useRecipes();
   const { fetchData } = useFetch();
 
   useEffect(() => {
@@ -34,12 +38,16 @@ function RecipeDetail({ inProgress = false }) {
       fetcher: fetchData,
       recipeType: recommendedRecipesType,
       url: `${getBaseUrl(recommendedRecipesType)}/search.php?s=`,
+      totalRecipes: 6,
     })
       .then((data) => setRecommendedRecipes(data));
   }, [fetchData, id, recipeType, recommendedRecipesType, setRecommendedRecipes]);
 
-  console.log('in-progress: ', inProgress);
-  console.log(recipe, 'recipe');
+  const parsedRecommendedRecipes = chunkArray({
+    arr: recommendedRecipes,
+    chunkLength: 2,
+  });
+
   return (
     recipe && (
       <>
@@ -73,6 +81,21 @@ function RecipeDetail({ inProgress = false }) {
             data-testid="video"
           />
         )}
+        <Carousel>
+          {parsedRecommendedRecipes.map((chunkRecipes, i) => (
+            <Carousel.Item key={ i }>
+              {chunkRecipes.map(({ element, index }) => (
+                <RecipesCard
+                  key={ element.id }
+                  index={ index }
+                  recipe={ element }
+                  isRecommended
+                />
+              ))}
+            </Carousel.Item>
+          ))}
+        </Carousel>
+        ;
       </>
     )
   );

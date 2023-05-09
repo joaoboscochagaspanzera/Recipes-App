@@ -1,8 +1,8 @@
 import propTypes from 'prop-types';
 
 export const recipeIngredientPropType = propTypes.shape({
-  ingredientName: propTypes.string.isRequired,
-  ingredientMensure: propTypes.string.isRequired,
+  ingredientName: propTypes.string,
+  ingredientMensure: propTypes.string,
 });
 
 export const recipePropType = propTypes.shape({
@@ -13,4 +13,5 @@ export const recipePropType = propTypes.shape({
   ingredients: propTypes.arrayOf(recipeIngredientPropType).isRequired,
   instruction: propTypes.string.isRequired,
   video_url: propTypes.string,
+  type: propTypes.string,
 });
