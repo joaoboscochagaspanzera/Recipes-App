@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import propTypes from 'prop-types';
 import Carousel from 'react-bootstrap/Carousel';
 
@@ -54,13 +54,11 @@ function RecipeDetails({ inProgress = false }) {
     chunkLength: 2,
   });
 
-  const recipeIsFinished = storagedDoneRecipes.find(
+  const recipeIsFinished = !!storagedDoneRecipes.find(
     (finishRecipe) => finishRecipe.id === id,
   );
 
-  const recipeIsInProgress = Object.keys(storagedInProgessRecipes[recipeType]).find(
-    ((inProgressRecipe) => inProgressRecipe === id),
-  );
+  const recipeInProgress = storagedInProgessRecipes[recipeType][id];
 
   return (
     recipe && (
@@ -110,15 +108,16 @@ function RecipeDetails({ inProgress = false }) {
           ))}
         </Carousel>
         { !recipeIsFinished && (
-          <button
+          <Link
+            to={ `/${recipe.type}/${recipe.id}/in-progress` }
             data-testid="start-recipe-btn"
             style={ {
               position: 'fixed',
               bottom: 0,
             } }
           >
-            { recipeIsInProgress ? 'Continue Recipe' : 'Start Recipe'}
-          </button>
+            { recipeInProgress ? 'Continue Recipe' : 'Start Recipe'}
+          </Link>
         )}
       </>
     )
