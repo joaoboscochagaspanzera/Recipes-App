@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { useCallback } from 'react';
 import { useForm } from '../hooks/useForm';
 import { useLocalStorage } from '../hooks/useLocalStorage';
@@ -5,12 +6,12 @@ import { useLocalStorage } from '../hooks/useLocalStorage';
 function Login() {
   const inputEmail = useForm();
   const inputPassword = useForm();
-  const [setStoragedUser] = useLocalStorage('user');
+  const [, setStoragedUser] = useLocalStorage('user');
 
   const REGEX_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const MIN_CHARACTERS = 6;
   const isValid = REGEX_EMAIL.test(inputEmail.value)
-  && (inputPassword.value).length > MIN_CHARACTERS;
+  && inputPassword.value.length > MIN_CHARACTERS;
 
   const handleChange = useCallback(() => {
     setStoragedUser({
@@ -34,14 +35,16 @@ function Login() {
           placeholder="Password"
           { ...inputPassword }
         />
-        <button
-          data-testid="login-submit-btn"
-          type="submit"
-          disabled={ !isValid }
-          onClick={ handleChange }
-        >
-          ENTER
-        </button>
+        <Link to="/meals">
+          <button
+            data-testid="login-submit-btn"
+            type="submit"
+            disabled={ !isValid }
+            onClick={ handleChange }
+          >
+            ENTER
+          </button>
+        </Link>
       </form>
     </div>
   );
