@@ -9,8 +9,9 @@ import { RecipesCard } from '../components/Recipes/RecipesCard';
 import { getBaseUrl, getRecipeDetail, getRecipes, useRecipes } from '../hooks/useRecipes';
 import { useFetch } from '../hooks/useFetch';
 import { chunkArray } from '../utils/chunckArray';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
-function RecipeDetail({ inProgress = false }) {
+function RecipeDetails({ inProgress = false }) {
   console.log(inProgress);
   const [recipe, setRecipe] = useState();
 
@@ -22,6 +23,7 @@ function RecipeDetail({ inProgress = false }) {
 
   const { setRecipeType, recommendedRecipes, setRecommendedRecipes } = useRecipes();
   const { fetchData } = useFetch();
+  const [storagedDoneRecipes] = useLocalStorage('doneRecipes', []);
 
   useEffect(() => {
     setRecipeType(recipeType);
@@ -47,6 +49,10 @@ function RecipeDetail({ inProgress = false }) {
     arr: recommendedRecipes,
     chunkLength: 2,
   });
+
+  const recipeIsFinished = storagedDoneRecipes.find(
+    (finishRecipe) => finishRecipe.id === id,
+  );
 
   return (
     recipe && (
@@ -95,22 +101,24 @@ function RecipeDetail({ inProgress = false }) {
             </Carousel.Item>
           ))}
         </Carousel>
-        <button
-          data-testid="start-recipe-btn"
-          style={ {
-            position: 'fixed',
-            bottom: 0,
-          } }
-        >
-          Start Recipe
-        </button>
+        { !recipeIsFinished && (
+          <button
+            data-testid="start-recipe-btn"
+            style={ {
+              position: 'fixed',
+              bottom: 0,
+            } }
+          >
+            Start Recipe
+          </button>
+        )}
       </>
     )
   );
 }
 
-RecipeDetail.propTypes = {
+RecipeDetails.propTypes = {
   inProgress: propTypes.bool,
 };
 
-export { RecipeDetail };
+export { RecipeDetails };

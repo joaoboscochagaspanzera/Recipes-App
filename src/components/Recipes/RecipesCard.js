@@ -7,7 +7,7 @@ function RecipesCard({ recipe, index, isRecommended = false }) {
   return (
     <Link
       to={ `/${recipe.type}/${recipe.id}` }
-      data-testid={ `${index}-${isRecommended ? 'recommendation-card' : 'recipe-car'}` }
+      data-testid={ `${index}-${isRecommended ? 'recommendation-card' : 'recipe-card'}` }
     >
       <p
         data-testid={ `${index}-${isRecommended ? 'recommendation-title' : 'card-name'}` }

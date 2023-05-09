@@ -35,8 +35,7 @@ function Recipes() {
       recipeType,
       url: `${getBaseUrl(recipeType)}/search.php?s=`,
     })
-      .then((data) => setRecipes({ [recipeType]: data }));
-    return setRecipes({ drinks: [], meals: [] });
+      .then((data) => setRecipes((prevState) => ({ ...prevState, [recipeType]: data })));
   }, [fetchData, recipeType, setRecipes]);
 
   return (

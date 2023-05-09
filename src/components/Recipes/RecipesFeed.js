@@ -5,6 +5,7 @@ import { recipePropType } from '../../types/recipe.type';
 import { RecipesCard } from './RecipesCard';
 
 function RecipesFeed({ recipes }) {
+  console.log(recipes);
   return (
     <>
       <h1>RecipesFeed</h1>
