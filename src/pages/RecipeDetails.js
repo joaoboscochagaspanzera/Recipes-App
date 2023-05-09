@@ -119,6 +119,8 @@ function RecipeDetails({ inProgress = false }) {
             { recipeInProgress ? 'Continue Recipe' : 'Start Recipe'}
           </Link>
         )}
+        <button data-testid="share-btn">Compartilhar</button>
+        <button data-testid="favorite-btn">Favoritar</button>
       </>
     )
   );
