@@ -13,6 +13,7 @@ function ButtonCopyClipboard({ text, textToCopy, testId }) {
   return (
     <>
       <button
+        src={ shareIcon }
         data-testid={ testId }
         onClick={ handleClickShareButton }
       >

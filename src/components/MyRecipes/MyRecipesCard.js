@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
-import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import { ButtonCopyClipboard } from '../Shared/ButtonCopyClipboard';
+import { recipePropType } from '../../types/recipe.type';
 
 function MyRecipesCard({ recipe:
-  { image, name, category, nationality, alcoholicOrNot }, index }) {
+  { image, name, category, nationality, alcoholicOrNot, type, id }, index }) {
   return (
     <>
       <h1>MyRecipesCard</h1>
@@ -12,12 +13,11 @@ function MyRecipesCard({ recipe:
         { alcoholicOrNot || `${nationality} - ${category}` }
       </p>
       <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
-      <button data-testid={ `${index}-horizontal-share-btn` } src={ shareIcon }>
-        <img
-          src={ shareIcon }
-          alt="botão compartilhar receita"
-        />
-      </button>
+      <ButtonCopyClipboard
+        testId={ `${index}-horizontal-share-btn` }
+        textToCopy={ `${window.location.origin}/${type}s/${id}` }
+        text="compartilhar"
+      />
       <button
         data-testid={ `${index}-horizontal-favorite-btn` }
         src={ blackHeartIcon }
@@ -33,13 +33,7 @@ function MyRecipesCard({ recipe:
 }
 
 MyRecipesCard.propTypes = {
-  recipe: PropTypes.shape({
-    image: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    category: PropTypes.string.isRequired,
-    nationality: PropTypes.string.isRequired,
-    alcoholicOrNot: PropTypes.string.isRequired,
-  }).isRequired,
+  recipe: recipePropType.isRequired,
   index: PropTypes.number.isRequired,
 };
 
