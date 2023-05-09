@@ -13,14 +13,12 @@ test('Farewell, front-end', () => {
   const emailInput = screen.getByPlaceholderText(/email/i);
   const passwordInput = screen.getByTestId('password-input');
   const enterBtn = screen.getByRole('button', { name: /enter/i });
-
   expect(loginText).toBeInTheDocument();
   expect(enterBtn).toBeDefined();
   expect(enterBtn).toBeDisabled();
 
   userEvent.type(emailInput, email);
   userEvent.type(passwordInput, password);
-
   expect(enterBtn).not.toBeDisabled();
 
   userEvent.click(enterBtn);
