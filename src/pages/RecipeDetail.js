@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 
 import { RecipeDetailHeader } from '../components/Recipes/RecipeDetailHeader';
 
-import { getRecipeDetail, useRecipes } from '../hooks/useRecipes';
+import { getBaseUrl, getRecipeDetail, getRecipes, useRecipes } from '../hooks/useRecipes';
 import { useFetch } from '../hooks/useFetch';
 
 function RecipeDetail({ inProgress = false }) {
@@ -12,10 +12,11 @@ function RecipeDetail({ inProgress = false }) {
   const { pathname } = useLocation();
 
   const recipeType = pathname.split('/')[1];
+  const recommendedRecipesType = recipeType === 'meals' ? 'drinks' : 'meals';
 
   const [recipe, setRecipe] = useState();
 
-  const { setRecipeType } = useRecipes();
+  const { setRecipeType, setRecommendedRecipes } = useRecipes();
   const { fetchData } = useFetch();
 
   useEffect(() => {
@@ -29,7 +30,13 @@ function RecipeDetail({ inProgress = false }) {
       recipeType,
     })
       .then((data) => setRecipe(data));
-  }, [fetchData, id, recipeType]);
+    getRecipes({
+      fetcher: fetchData,
+      recipeType: recommendedRecipesType,
+      url: `${getBaseUrl(recommendedRecipesType)}/search.php?s=`,
+    })
+      .then((data) => setRecommendedRecipes(data));
+  }, [fetchData, id, recipeType, recommendedRecipesType, setRecommendedRecipes]);
 
   console.log('in-progress: ', inProgress);
   console.log(recipe, 'recipe');
