@@ -2,12 +2,10 @@ import { useEffect, useState, useCallback } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import propTypes from 'prop-types';
 import Carousel from 'react-bootstrap/Carousel';
-import copyToClipboard from 'clipboard-copy';
 
 import { RecipeDetailHeader } from '../components/Recipes/RecipeDetailHeader';
 import { RecipesCard } from '../components/Recipes/RecipesCard';
 
-import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
@@ -15,11 +13,11 @@ import { getBaseUrl, getRecipeDetail, getRecipes, useRecipes } from '../hooks/us
 import { useFetch } from '../hooks/useFetch';
 import { chunkArray } from '../utils/chunckArray';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { ButtonCopyClipboard } from '../components/Shared/ButtonCopyClipboard';
 
 function RecipeDetails({ inProgress = false }) {
   console.log(inProgress);
   const [recipe, setRecipe] = useState();
-  const [linkWasCopyToClipboard, setLinkWasCopyToClipboard] = useState(false);
 
   const { id } = useParams();
   const { pathname } = useLocation();
@@ -30,32 +28,49 @@ function RecipeDetails({ inProgress = false }) {
   const { setRecipeType, recommendedRecipes, setRecommendedRecipes } = useRecipes();
   const { fetchData } = useFetch();
   const [storagedDoneRecipes] = useLocalStorage('doneRecipes', []);
+  const [storagedRecipesInProgress] = useLocalStorage(
+    'inProgressRecipes',
+    { drinks: {}, meals: {} },
+  );
   const [storagedFavoritedRecipes, setStoragedFavoritedRecipes] = useLocalStorage(
     'favoriteRecipes',
     [],
   );
-  const [storagedInProgessRecipes] = useLocalStorage(
-    'inProgressRecipes',
-    { drinks: {}, meals: {} },
+
+  const recipeIsFavorite = storagedFavoritedRecipes.find(
+    (favoritedRecipe) => favoritedRecipe.id === id,
   );
 
-  const handleClickShareButton = useCallback(() => {
-    setLinkWasCopyToClipboard(true);
-    copyToClipboard(window.location.href);
-  }, []);
+  const handleToggleFavoriteRecipe = useCallback(() => {
+    if (!recipeIsFavorite) {
+      const recipeToStorage = {
+        id: String(recipe.id),
+        type: recipe.type.substr(0, recipe.type.length - 1),
+        nationality: recipe.nationality,
+        category: recipe.category,
+        alcoholicOrNot: recipe.alcoholicOrNot,
+        name: recipe.name,
+        image: recipe.image,
+      };
+      setStoragedFavoritedRecipes([...storagedFavoritedRecipes, recipeToStorage]);
+    } else {
+      const updatedFavoritedRecipes = [...storagedFavoritedRecipes];
 
-  const handleClickFavoriteRecipeButton = useCallback(() => {
-    const recipeToStorage = {
-      id: String(recipe.id),
-      type: recipe.type.substr(0, recipe.type.length - 1),
-      nationality: recipe.nationality,
-      category: recipe.category,
-      alcoholicOrNot: recipe.alcoholicOrNot,
-      name: recipe.name,
-      image: recipe.image,
-    };
-    setStoragedFavoritedRecipes([...storagedFavoritedRecipes, recipeToStorage]);
-  }, [recipe, setStoragedFavoritedRecipes, storagedFavoritedRecipes]);
+      const favoriteRecipeIndex = updatedFavoritedRecipes.findIndex(
+        ((favoritedRecipe) => favoritedRecipe === id),
+      );
+
+      updatedFavoritedRecipes.splice(favoriteRecipeIndex, 1);
+
+      setStoragedFavoritedRecipes(updatedFavoritedRecipes);
+    }
+  }, [
+    recipe,
+    recipeIsFavorite,
+    id,
+    setStoragedFavoritedRecipes,
+    storagedFavoritedRecipes,
+  ]);
 
   useEffect(() => {
     setRecipeType(recipeType);
@@ -86,13 +101,7 @@ function RecipeDetails({ inProgress = false }) {
     (finishRecipe) => finishRecipe.id === id,
   );
 
-  const recipeInProgress = storagedInProgessRecipes[recipeType]
-    ? storagedInProgessRecipes[recipeType][id]
-    : null;
-
-  const recipeIsFavorite = storagedFavoritedRecipes.find(
-    (favoritedRecipe) => favoritedRecipe.id === id,
-  );
+  const recipeInProgress = storagedRecipesInProgress[recipeType][id] || inProgress;
 
   return (
     recipe && (
@@ -154,15 +163,13 @@ function RecipeDetails({ inProgress = false }) {
             { recipeInProgress ? 'Continue Recipe' : 'Start Recipe'}
           </Link>
         )}
+        <ButtonCopyClipboard
+          testId="share-btn"
+          text="Compartilhar"
+          textToCopy={ window.location.href }
+        />
         <button
-          data-testid="share-btn"
-          onClick={ handleClickShareButton }
-        >
-          <img src={ shareIcon } alt="share icon" />
-          Compartilhar
-        </button>
-        <button
-          onClick={ handleClickFavoriteRecipeButton }
+          onClick={ handleToggleFavoriteRecipe }
           data-testid="favorite-btn"
           src={ recipeIsFavorite ? blackHeartIcon : whiteHeartIcon }
         >
@@ -172,9 +179,6 @@ function RecipeDetails({ inProgress = false }) {
           />
           Favoritar
         </button>
-        { linkWasCopyToClipboard && (
-          <p>Link copied!</p>
-        )}
       </>
     )
   );

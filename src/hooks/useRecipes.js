@@ -15,7 +15,7 @@ export const getBaseUrl = (recipeType) => `${
     : MEAL_API_BASE_URL
 }`;
 
-const mapRecipe = (recipe, recipeType) => {
+export const mapRecipe = (recipe, recipeType) => {
   const MAX_INGREDIENTS = 20;
   const stringRecipeId = recipeType === 'meals' ? recipe.idMeal : recipe.idDrink;
 
