@@ -1,22 +1,28 @@
 import propTypes from 'prop-types';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import { ButtonCopyClipboard } from '../Shared/ButtonCopyClipboard';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { useRecipes } from '../../hooks/useRecipes';
 
 function MyRecipesCard({ recipe:
   { image, name, category, nationality, alcoholicOrNot, type, id }, index }) {
-  const [storedValue, setValue] = useLocalStorage('favoriteRecipes', []);
-
-  const newStoredValue = [...storedValue];
-  newStoredValue.filter((e) => e.id !== id);
+  const { removeRecipeFromFavorites } = useRecipes();
   return (
     <>
       <h1>MyRecipesCard</h1>
-      <img data-testid={ `${index}-horizontal-image` } src={ image } alt={ name } />
+      <Link to={ `/${type}s/${id}` }>
+        <img
+          width={ 200 }
+          height={ 200 }
+          data-testid={ `${index}-horizontal-image` }
+          src={ image }
+          alt={ name }
+        />
+        <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
+      </Link>
       <p data-testid={ `${index}-horizontal-top-text` }>
         { alcoholicOrNot || `${nationality} - ${category}` }
       </p>
-      <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
       <ButtonCopyClipboard
         testId={ `${index}-horizontal-share-btn` }
         textToCopy={ `${window.location.origin}/${type}s/${id}` }
@@ -25,7 +31,7 @@ function MyRecipesCard({ recipe:
       <button
         data-testid={ `${index}-horizontal-favorite-btn` }
         src={ blackHeartIcon }
-        onClick={ () => setValue(newStoredValue.filter((e) => e.id !== id)) }
+        onClick={ () => removeRecipeFromFavorites({ recipeId: id }) }
       >
         <img
           src={ blackHeartIcon }

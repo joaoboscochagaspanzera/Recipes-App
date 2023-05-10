@@ -119,7 +119,7 @@ export function RecipesProvider({ children }) {
     const updatedFavoritedRecipes = [...storagedFavoritedRecipes];
 
     const favoriteRecipeIndex = updatedFavoritedRecipes.findIndex(
-      ((favoritedRecipe) => favoritedRecipe === recipeId),
+      ((favoritedRecipe) => favoritedRecipe.id === recipeId),
     );
 
     updatedFavoritedRecipes.splice(favoriteRecipeIndex, 1);
