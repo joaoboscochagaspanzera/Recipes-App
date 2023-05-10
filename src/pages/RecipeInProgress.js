@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { ButtonFavoriteRecipe } from '../components/Recipes/ButtonFavoriteRecipe';
 
 import { RecipeDetailHeader } from '../components/Recipes/RecipeDetailHeader';
@@ -18,13 +19,13 @@ import {
 function RecipeInProgress() {
   const { id } = useParams();
   const { pathname } = useLocation();
+  const { push } = useHistory();
   const recipeType = pathname.split('/')[1];
 
   const [recipe, setRecipe] = useState();
 
-  const { recipesInProgress } = useRecipes();
+  const { recipesInProgress, finishRecipe } = useRecipes();
   const { fetchData } = useFetch();
-  console.log(recipesInProgress);
 
   useEffect(() => {
     getRecipeDetail({
@@ -41,6 +42,11 @@ function RecipeInProgress() {
 
   const buttonFinishRecipeIsDisabled = usedIngredients.length
     !== recipe?.ingredients.length;
+
+  const handleClickFinishRecipe = useCallback(() => {
+    finishRecipe({ recipe });
+    push('/done-recipes');
+  }, [finishRecipe, push, recipe]);
 
   return (
     recipe && (
@@ -67,6 +73,7 @@ function RecipeInProgress() {
         <button
           disabled={ buttonFinishRecipeIsDisabled }
           data-testid="finish-recipe-btn"
+          onClick={ handleClickFinishRecipe }
         >
           Finish Recipe
         </button>

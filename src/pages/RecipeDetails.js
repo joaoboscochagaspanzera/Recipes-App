@@ -75,6 +75,12 @@ function RecipeDetails() {
             data-testid="video"
           />
         )}
+        <ButtonCopyClipboard
+          testId="share-btn"
+          text="Compartilhar"
+          textToCopy={ window.location.href }
+        />
+        <ButtonFavoriteRecipe recipe={ recipe } />
         <RecommendedRecipes type={ recommendedRecipesType } />
         { !recipeIsFinished && (
           <button
@@ -89,12 +95,7 @@ function RecipeDetails() {
             { recipeIsInProgress ? 'Continue Recipe' : 'Start Recipe'}
           </button>
         )}
-        <ButtonCopyClipboard
-          testId="share-btn"
-          text="Compartilhar"
-          textToCopy={ window.location.href }
-        />
-        <ButtonFavoriteRecipe recipe={ recipe } />
+
       </>
     )
   );

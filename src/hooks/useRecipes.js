@@ -49,6 +49,7 @@ export const mapRecipe = (recipe, recipeType) => {
     type: recipeType,
     nationality: recipe.strArea || '',
     alcoholicOrNot: recipe.strAlcoholic || '',
+    tags: recipe.strTags ? recipe.strTags.split(',') : [],
   });
 };
 
@@ -158,6 +159,21 @@ export function RecipesProvider({ children }) {
     });
   }, [setStoragedRecipesInProgress, storagedRecipesInProgress]);
 
+  const finishRecipe = useCallback(({ recipe }) => {
+    const recipeToStorage = {
+      id: String(recipe.id),
+      type: recipe.type.substr(0, recipe.type.length - 1),
+      nationality: recipe.nationality,
+      category: recipe.category,
+      alcoholicOrNot: recipe.alcoholicOrNot,
+      name: recipe.name,
+      image: recipe.image,
+      tags: recipe.tags,
+      doneDate: new Date(),
+    };
+    setStoragedDoneRecipes([...storagedDoneRecipes, recipeToStorage]);
+  }, [setStoragedDoneRecipes, storagedDoneRecipes]);
+
   const value = useMemo(() => ({
     recipes,
     setRecipes,
@@ -174,6 +190,7 @@ export function RecipesProvider({ children }) {
     recipesInProgress: storagedRecipesInProgress,
     setRecipesInProgress: setStoragedRecipesInProgress,
     startOrEditRecipe,
+    finishRecipe,
   }), [
     addRecipeToFavorites,
     categoryFilterSelected,
@@ -187,6 +204,7 @@ export function RecipesProvider({ children }) {
     storagedRecipesInProgress,
     startOrEditRecipe,
     toggleFavoriteRecipe,
+    finishRecipe,
   ]);
 
   return (
