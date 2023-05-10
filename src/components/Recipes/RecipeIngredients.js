@@ -38,7 +38,15 @@ function RecipeIngredients({ recipe, inProgress = false }) {
 
           const ingredient = { name, meansure, id };
           return (
-            <label data-testid={ `${index}-ingredient-step` } key={ index }>
+            <label
+              data-testid={ `${index}-ingredient-step` }
+              key={ index }
+              style={ {
+                textDecoration: ingredientWasUsed
+                  ? 'line-through solid rgb(0, 0, 0)'
+                  : '',
+              } }
+            >
               <input
                 type="checkbox"
                 name="ingredient"
