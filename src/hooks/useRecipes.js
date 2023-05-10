@@ -1,5 +1,7 @@
-import { useState, createContext, useContext, useMemo } from 'react';
+import { useState, createContext, useContext, useMemo, useCallback } from 'react';
 import propTypes from 'prop-types';
+
+import { useLocalStorage } from './useLocalStorage';
 
 export const MEAL_API_BASE_URL = 'https://www.themealdb.com/api/json/v1/1';
 export const DRINK_API_BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1';
@@ -87,6 +89,44 @@ export function RecipesProvider({ children }) {
   const [recipeType, setRecipeType] = useState('');
   const [categoryFilterSelected, setCategoryFilterSelected] = useState('All');
 
+  const [
+    storagedFavoritedRecipes,
+    setStoragedFavoritedRecipes,
+  ] = useLocalStorage('favoriteRecipes', []);
+  const [
+    storagedDoneRecipes,
+    setStoragedDoneRecipes,
+  ] = useLocalStorage('doneRecipes', []);
+  const [
+    storagedRecipesInProgress,
+    setStoragedRecipesInProgress,
+  ] = useLocalStorage('inProgressRecipes', { drinks: {}, meals: {} });
+
+  const addRecipeToFavorites = useCallback(({ recipe }) => {
+    const recipeToStorage = {
+      id: String(recipe.id),
+      type: recipe.type.substr(0, recipe.type.length - 1),
+      nationality: recipe.nationality,
+      category: recipe.category,
+      alcoholicOrNot: recipe.alcoholicOrNot,
+      name: recipe.name,
+      image: recipe.image,
+    };
+    setStoragedFavoritedRecipes([...storagedFavoritedRecipes, recipeToStorage]);
+  }, [setStoragedFavoritedRecipes, storagedFavoritedRecipes]);
+
+  const removeRecipeFromFavorites = useCallback(({ recipeId }) => {
+    const updatedFavoritedRecipes = [...storagedFavoritedRecipes];
+
+    const favoriteRecipeIndex = updatedFavoritedRecipes.findIndex(
+      ((favoritedRecipe) => favoritedRecipe === recipeId),
+    );
+
+    updatedFavoritedRecipes.splice(favoriteRecipeIndex, 1);
+
+    setStoragedFavoritedRecipes(updatedFavoritedRecipes);
+  }, [setStoragedFavoritedRecipes, storagedFavoritedRecipes]);
+
   const value = useMemo(() => ({
     recipes,
     setRecipes,
@@ -96,7 +136,26 @@ export function RecipesProvider({ children }) {
     setRecipeType,
     categoryFilterSelected,
     setCategoryFilterSelected,
-  }), [categoryFilterSelected, recipeType, recipes, recommendedRecipes]);
+    favoriteRecipes: storagedFavoritedRecipes,
+    addRecipeToFavorites,
+    removeRecipeFromFavorites,
+    doneRecipes: storagedDoneRecipes,
+    setDoneRecipes: setStoragedDoneRecipes,
+    recipesInProgress: storagedRecipesInProgress,
+    setRecipesInProgress: setStoragedRecipesInProgress,
+  }), [
+    addRecipeToFavorites,
+    categoryFilterSelected,
+    recipeType,
+    recipes,
+    recommendedRecipes,
+    removeRecipeFromFavorites,
+    setStoragedDoneRecipes,
+    setStoragedRecipesInProgress,
+    storagedDoneRecipes,
+    storagedFavoritedRecipes,
+    storagedRecipesInProgress,
+  ]);
 
   return (
     <RecipesContext.Provider value={ value }>
