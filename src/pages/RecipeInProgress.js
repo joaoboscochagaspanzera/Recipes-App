@@ -37,6 +37,11 @@ function RecipeInProgress() {
 
   const recommendedRecipesType = getRecommendedRecipesType({ recipeType });
 
+  const usedIngredients = recipesInProgress[recipeType][id] || [];
+
+  const buttonFinishRecipeIsDisabled = usedIngredients.length
+    !== recipe?.ingredients.length;
+
   return (
     recipe && (
       <>
@@ -59,7 +64,12 @@ function RecipeInProgress() {
           textToCopy={ `${window.location.origin}/${recipeType}/${id}` }
         />
         <ButtonFavoriteRecipe recipe={ recipe } />
-        <button data-testid="finish-recipe-btn">Finish Recipe</button>
+        <button
+          disabled={ buttonFinishRecipeIsDisabled }
+          data-testid="finish-recipe-btn"
+        >
+          Finish Recipe
+        </button>
       </>
     )
   );
