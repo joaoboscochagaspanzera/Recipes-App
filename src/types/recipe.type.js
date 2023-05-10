@@ -1,8 +1,9 @@
 import propTypes from 'prop-types';
 
 export const recipeIngredientPropType = propTypes.shape({
-  ingredientName: propTypes.string,
-  ingredientMensure: propTypes.string,
+  id: propTypes.number,
+  name: propTypes.string,
+  meansura: propTypes.string,
 });
 
 export const recipePropType = propTypes.shape({
@@ -16,4 +17,5 @@ export const recipePropType = propTypes.shape({
   type: propTypes.string,
   nationality: propTypes.string,
   alcoholicOrNot: propTypes.string,
+  tags: propTypes.arrayOf(propTypes.string),
 });

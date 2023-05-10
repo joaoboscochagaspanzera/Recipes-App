@@ -7,9 +7,18 @@ export const MEAL_API_BASE_URL = 'https://www.themealdb.com/api/json/v1/1';
 export const DRINK_API_BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1';
 const TOTAL_RECIPES = 12;
 
+const recommendedRecipesTypeName = {
+  drinks: 'meals',
+  meals: 'drinks',
+};
+
 export const RecipesContext = createContext();
 
 export const useRecipes = () => useContext(RecipesContext);
+
+export const getRecommendedRecipesType = (
+  { recipeType },
+) => recommendedRecipesTypeName[recipeType];
 
 export const getBaseUrl = (recipeType) => `${
   recipeType === 'drinks'
@@ -22,11 +31,12 @@ export const mapRecipe = (recipe, recipeType) => {
   const stringRecipeId = recipeType === 'meals' ? recipe.idMeal : recipe.idDrink;
 
   const ingredients = Array.from({ length: MAX_INGREDIENTS }, (_, i) => i + 1).map(
-    (index) => ({
-      ingredientName: recipe[`strIngredient${index}`],
-      ingredientMensure: recipe[`strMeasure${index}`],
+    (number, index) => ({
+      id: index + 1,
+      name: recipe[`strIngredient${number}`],
+      meansure: recipe[`strMeasure${number}`],
     }),
-  ).filter(({ ingredientName }) => !!ingredientName);
+  ).filter(({ name }) => !!name);
 
   return ({
     id: Number(stringRecipeId),
@@ -39,6 +49,7 @@ export const mapRecipe = (recipe, recipeType) => {
     type: recipeType,
     nationality: recipe.strArea || '',
     alcoholicOrNot: recipe.strAlcoholic || '',
+    tags: recipe.strTags ? recipe.strTags.split(',') : [],
   });
 };
 
@@ -85,7 +96,7 @@ export function RecipesProvider({ children }) {
     drinks: [],
     meals: [],
   });
-  const [recommendedRecipes, setRecommendedRecipes] = useState([]);
+
   const [recipeType, setRecipeType] = useState('');
   const [categoryFilterSelected, setCategoryFilterSelected] = useState('All');
 
@@ -127,11 +138,45 @@ export function RecipesProvider({ children }) {
     setStoragedFavoritedRecipes(updatedFavoritedRecipes);
   }, [setStoragedFavoritedRecipes, storagedFavoritedRecipes]);
 
+  const toggleFavoriteRecipe = useCallback(({ recipe }) => {
+    const recipeIsFavorite = !!storagedFavoritedRecipes.find(
+      (favoritedRecipe) => favoritedRecipe.id === String(recipe.id),
+    );
+    if (recipeIsFavorite) {
+      removeRecipeFromFavorites({ recipeId: recipe.id });
+    } else {
+      addRecipeToFavorites({ recipe });
+    }
+  }, [addRecipeToFavorites, removeRecipeFromFavorites, storagedFavoritedRecipes]);
+
+  const startOrEditRecipe = useCallback(({ recipe, ingredients = [] }) => {
+    setStoragedRecipesInProgress({
+      ...storagedRecipesInProgress,
+      [recipe.type]: {
+        ...storagedRecipesInProgress[recipe.type],
+        [recipe.id]: ingredients,
+      },
+    });
+  }, [setStoragedRecipesInProgress, storagedRecipesInProgress]);
+
+  const finishRecipe = useCallback(({ recipe }) => {
+    const recipeToStorage = {
+      id: String(recipe.id),
+      type: recipe.type.substr(0, recipe.type.length - 1),
+      nationality: recipe.nationality,
+      category: recipe.category,
+      alcoholicOrNot: recipe.alcoholicOrNot,
+      name: recipe.name,
+      image: recipe.image,
+      tags: recipe.tags,
+      doneDate: new Date(),
+    };
+    setStoragedDoneRecipes([...storagedDoneRecipes, recipeToStorage]);
+  }, [setStoragedDoneRecipes, storagedDoneRecipes]);
+
   const value = useMemo(() => ({
     recipes,
     setRecipes,
-    recommendedRecipes,
-    setRecommendedRecipes,
     recipeType,
     setRecipeType,
     categoryFilterSelected,
@@ -139,22 +184,27 @@ export function RecipesProvider({ children }) {
     favoriteRecipes: storagedFavoritedRecipes,
     addRecipeToFavorites,
     removeRecipeFromFavorites,
+    toggleFavoriteRecipe,
     doneRecipes: storagedDoneRecipes,
     setDoneRecipes: setStoragedDoneRecipes,
     recipesInProgress: storagedRecipesInProgress,
     setRecipesInProgress: setStoragedRecipesInProgress,
+    startOrEditRecipe,
+    finishRecipe,
   }), [
     addRecipeToFavorites,
     categoryFilterSelected,
     recipeType,
     recipes,
-    recommendedRecipes,
     removeRecipeFromFavorites,
     setStoragedDoneRecipes,
     setStoragedRecipesInProgress,
     storagedDoneRecipes,
     storagedFavoritedRecipes,
     storagedRecipesInProgress,
+    startOrEditRecipe,
+    toggleFavoriteRecipe,
+    finishRecipe,
   ]);
 
   return (

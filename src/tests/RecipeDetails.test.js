@@ -22,18 +22,26 @@ const fakeFetchRecipes = async () => ({
   ok: true,
 });
 
+const fakeFetchRecipeDetail = async () => ({
+  json: async () => ({ drinks: [fakeDrinks[0]], meals: [fakeMeals[0]] }),
+  ok: true,
+});
+
 jest.mock('clipboard-copy');
 
 describe('Testes RecipeDetails.js page', () => {
   beforeEach(() => {
     global.fetch = jest.fn()
-      .mockImplementation(fakeFetchRecipes);
+      .mockImplementation(fakeFetchRecipes)
+      .mockImplementationOnce(fakeFetchRecipeDetail)
+      .mockImplementationOnce(fakeFetchRecipes);
 
     copyToClipboard.mockImplementation(() => console.log('copied'));
   });
 
   afterEach(() => {
     jest.restoreAllMocks();
+    localStorage.clear();
   });
 
   it('should be render component RecipeDetails in routes ["/meals/:id", "/drinks/id"]', async () => {
@@ -74,10 +82,18 @@ describe('Testes RecipeDetails.js page', () => {
     expect(storagedFavoriteRecipes).toHaveLength(0);
   });
 
-  it('should be render "Start Recipe" or "Continue Recipe"', async () => {
+  it('should be render "Continue Recipe"', async () => {
+    const fakeRecipe = mapRecipe(fakeDrinks[0], 'drinks');
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      drinks: {
+        [fakeRecipe.id]: [],
+      },
+      meals: {},
+    }));
+
     renderWithRouter(
       <App />,
-      { location: `/drinks/${fakeDrinks[0].idDrink}/in-progress` },
+      { location: `/drinks/${fakeRecipe.id}` },
     );
 
     await waitFor(() => screen.getByTestId(RECIPE_TITLE));
@@ -87,12 +103,51 @@ describe('Testes RecipeDetails.js page', () => {
     expect(buttonStartRecipe).toBeInTheDocument();
   });
 
+  it('should be render "Start Recipe"', async () => {
+    const fakeRecipe = mapRecipe(fakeDrinks[0], 'drinks');
+
+    renderWithRouter(
+      <App />,
+      { location: `/drinks/${fakeRecipe.id}` },
+    );
+
+    await waitFor(() => screen.getByTestId(RECIPE_TITLE));
+
+    const buttonStartRecipe = screen.getByText('Start Recipe');
+
+    expect(buttonStartRecipe).toBeInTheDocument();
+  });
+
+  it('should be able to start a recipe', async () => {
+    const fakeRecipe = mapRecipe(fakeDrinks[0], 'drinks');
+
+    // localStorage.setItem('inProgressRecipes', JSON.stringify({
+    //   drinks: {
+    //     [fakeRecipe.id]: [],
+    //   },
+    //   meals: {},
+    // }));
+
+    const { history } = renderWithRouter(
+      <App />,
+      { location: `/drinks/${fakeRecipe.id}` },
+    );
+
+    await waitFor(() => screen.getByTestId(RECIPE_TITLE));
+
+    const buttonStartRecipe = screen.getByText('Start Recipe');
+
+    act(() => userEvent.click(buttonStartRecipe));
+
+    expect(history.location.pathname).toBe(`/drinks/${fakeRecipe.id}/in-progress`);
+  });
+
   it('should not render start recipe button if recipe was finished', async () => {
     const recipe = mapRecipe(fakeMeals[0], 'meals');
 
     localStorage.setItem('doneRecipes', JSON.stringify([{ ...recipe, id: String(recipe.id) }]));
 
-    renderWithRouter(<App />, { location: `/meals/${recipe.id}/in-progress` });
+    renderWithRouter(<App />, { location: `/meals/${recipe.id}/` });
 
     await waitFor(() => screen.getByTestId(RECIPE_TITLE));
 
