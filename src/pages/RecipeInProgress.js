@@ -41,7 +41,7 @@ function RecipeInProgress() {
     recipe && (
       <>
         <RecipeDetailHeader recipe={ recipe } />
-        <RecipeIngredients recipe={ recipe } />
+        <RecipeIngredients recipe={ recipe } inProgress />
         <RecipeInstruction recipe={ recipe } />
         {recipeType === 'meals' && (
           <embed

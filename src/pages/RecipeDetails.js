@@ -28,7 +28,7 @@ function RecipeDetails() {
 
   const {
     setRecipeType,
-    startRecipe,
+    startOrEditRecipe,
     recipesInProgress,
     doneRecipes,
   } = useRecipes();
@@ -38,10 +38,10 @@ function RecipeDetails() {
 
   const handleClickStartRecipe = useCallback(() => {
     if (!recipeIsInProgress) {
-      startRecipe({ recipe });
+      startOrEditRecipe({ recipe });
     }
     push(`/${recipe.type}/${recipe.id}/in-progress`);
-  }, [push, recipe, recipeIsInProgress, startRecipe]);
+  }, [push, recipe, recipeIsInProgress, startOrEditRecipe]);
 
   useEffect(() => {
     setRecipeType(recipeType);

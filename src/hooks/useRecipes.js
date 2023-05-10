@@ -31,11 +31,12 @@ export const mapRecipe = (recipe, recipeType) => {
   const stringRecipeId = recipeType === 'meals' ? recipe.idMeal : recipe.idDrink;
 
   const ingredients = Array.from({ length: MAX_INGREDIENTS }, (_, i) => i + 1).map(
-    (index) => ({
-      ingredientName: recipe[`strIngredient${index}`],
-      ingredientMensure: recipe[`strMeasure${index}`],
+    (number, index) => ({
+      id: index + 1,
+      name: recipe[`strIngredient${number}`],
+      meansure: recipe[`strMeasure${number}`],
     }),
-  ).filter(({ ingredientName }) => !!ingredientName);
+  ).filter(({ name }) => !!name);
 
   return ({
     id: Number(stringRecipeId),
@@ -147,12 +148,12 @@ export function RecipesProvider({ children }) {
     }
   }, [addRecipeToFavorites, removeRecipeFromFavorites, storagedFavoritedRecipes]);
 
-  const startRecipe = useCallback(({ recipe }) => {
+  const startOrEditRecipe = useCallback(({ recipe, ingredients = [] }) => {
     setStoragedRecipesInProgress({
       ...storagedRecipesInProgress,
       [recipe.type]: {
         ...storagedRecipesInProgress[recipe.type],
-        [recipe.id]: [],
+        [recipe.id]: ingredients,
       },
     });
   }, [setStoragedRecipesInProgress, storagedRecipesInProgress]);
@@ -172,7 +173,7 @@ export function RecipesProvider({ children }) {
     setDoneRecipes: setStoragedDoneRecipes,
     recipesInProgress: storagedRecipesInProgress,
     setRecipesInProgress: setStoragedRecipesInProgress,
-    startRecipe,
+    startOrEditRecipe,
   }), [
     addRecipeToFavorites,
     categoryFilterSelected,
@@ -184,7 +185,7 @@ export function RecipesProvider({ children }) {
     storagedDoneRecipes,
     storagedFavoritedRecipes,
     storagedRecipesInProgress,
-    startRecipe,
+    startOrEditRecipe,
     toggleFavoriteRecipe,
   ]);
 
