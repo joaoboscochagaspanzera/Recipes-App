@@ -1,76 +1,56 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
-import propTypes from 'prop-types';
 import Carousel from 'react-bootstrap/Carousel';
 
 import { RecipeDetailHeader } from '../components/Recipes/RecipeDetailHeader';
 import { RecipesCard } from '../components/Recipes/RecipesCard';
+import { ButtonCopyClipboard } from '../components/Shared/ButtonCopyClipboard';
 
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 import { getBaseUrl, getRecipeDetail, getRecipes, useRecipes } from '../hooks/useRecipes';
 import { useFetch } from '../hooks/useFetch';
-import { chunkArray } from '../utils/chunckArray';
-import { useLocalStorage } from '../hooks/useLocalStorage';
-import { ButtonCopyClipboard } from '../components/Shared/ButtonCopyClipboard';
 
-function RecipeDetails({ inProgress = false }) {
-  console.log(inProgress);
+import { chunkArray } from '../utils/chunckArray';
+
+const recommendedRecipesTypeName = {
+  drinks: 'meals',
+  meals: 'drinks',
+};
+
+function RecipeDetails() {
   const [recipe, setRecipe] = useState();
 
   const { id } = useParams();
   const { pathname } = useLocation();
 
   const recipeType = pathname.split('/')[1];
-  const recommendedRecipesType = recipeType === 'meals' ? 'drinks' : 'meals';
+  const recommendedRecipesType = recommendedRecipesTypeName[recipeType];
 
-  const { setRecipeType, recommendedRecipes, setRecommendedRecipes } = useRecipes();
+  const {
+    setRecipeType,
+    recommendedRecipes,
+    setRecommendedRecipes,
+    favoriteRecipes,
+    addRecipeToFavorites,
+    removeRecipeFromFavorites,
+    recipesInProgress,
+    doneRecipes,
+  } = useRecipes();
   const { fetchData } = useFetch();
-  const [storagedDoneRecipes] = useLocalStorage('doneRecipes', []);
-  const [storagedRecipesInProgress] = useLocalStorage(
-    'inProgressRecipes',
-    { drinks: {}, meals: {} },
-  );
-  const [storagedFavoritedRecipes, setStoragedFavoritedRecipes] = useLocalStorage(
-    'favoriteRecipes',
-    [],
-  );
 
-  const recipeIsFavorite = storagedFavoritedRecipes.find(
+  const recipeIsFavorite = favoriteRecipes.find(
     (favoritedRecipe) => favoritedRecipe.id === id,
   );
 
   const handleToggleFavoriteRecipe = useCallback(() => {
-    if (!recipeIsFavorite) {
-      const recipeToStorage = {
-        id: String(recipe.id),
-        type: recipe.type.substr(0, recipe.type.length - 1),
-        nationality: recipe.nationality,
-        category: recipe.category,
-        alcoholicOrNot: recipe.alcoholicOrNot,
-        name: recipe.name,
-        image: recipe.image,
-      };
-      setStoragedFavoritedRecipes([...storagedFavoritedRecipes, recipeToStorage]);
+    if (recipeIsFavorite) {
+      removeRecipeFromFavorites({ recipeId: id });
     } else {
-      const updatedFavoritedRecipes = [...storagedFavoritedRecipes];
-
-      const favoriteRecipeIndex = updatedFavoritedRecipes.findIndex(
-        ((favoritedRecipe) => favoritedRecipe === id),
-      );
-
-      updatedFavoritedRecipes.splice(favoriteRecipeIndex, 1);
-
-      setStoragedFavoritedRecipes(updatedFavoritedRecipes);
+      addRecipeToFavorites({ recipe });
     }
-  }, [
-    recipe,
-    recipeIsFavorite,
-    id,
-    setStoragedFavoritedRecipes,
-    storagedFavoritedRecipes,
-  ]);
+  }, [addRecipeToFavorites, id, recipe, recipeIsFavorite, removeRecipeFromFavorites]);
 
   useEffect(() => {
     setRecipeType(recipeType);
@@ -97,11 +77,11 @@ function RecipeDetails({ inProgress = false }) {
     chunkLength: 2,
   });
 
-  const recipeIsFinished = !!storagedDoneRecipes.find(
+  const recipeIsFinished = !!doneRecipes.find(
     (finishRecipe) => finishRecipe.id === id,
   );
 
-  const recipeInProgress = storagedRecipesInProgress[recipeType][id] || inProgress;
+  const recipeInProgress = recipesInProgress[recipeType][id];
 
   return (
     recipe && (
@@ -183,9 +163,5 @@ function RecipeDetails({ inProgress = false }) {
     )
   );
 }
-
-RecipeDetails.propTypes = {
-  inProgress: propTypes.bool,
-};
 
 export { RecipeDetails };
