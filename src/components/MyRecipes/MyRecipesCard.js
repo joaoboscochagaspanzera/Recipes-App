@@ -1,10 +1,14 @@
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import { ButtonCopyClipboard } from '../Shared/ButtonCopyClipboard';
-import { recipePropType } from '../../types/recipe.type';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 function MyRecipesCard({ recipe:
   { image, name, category, nationality, alcoholicOrNot, type, id }, index }) {
+  const [storedValue, setValue] = useLocalStorage('favoriteRecipes', []);
+
+  const newStoredValue = [...storedValue];
+  newStoredValue.filter((e) => e.id !== id);
   return (
     <>
       <h1>MyRecipesCard</h1>
@@ -21,7 +25,7 @@ function MyRecipesCard({ recipe:
       <button
         data-testid={ `${index}-horizontal-favorite-btn` }
         src={ blackHeartIcon }
-        onClick={ () => localStorage.romoveItem() }
+        onClick={ () => setValue(newStoredValue.filter((e) => e.id !== id)) }
       >
         <img
           src={ blackHeartIcon }
@@ -33,8 +37,16 @@ function MyRecipesCard({ recipe:
 }
 
 MyRecipesCard.propTypes = {
-  recipe: recipePropType.isRequired,
-  index: PropTypes.number.isRequired,
+  recipe: propTypes.shape({
+    image: propTypes.string.isRequired,
+    name: propTypes.string.isRequired,
+    category: propTypes.string.isRequired,
+    nationality: propTypes.string.isRequired,
+    alcoholicOrNot: propTypes.string.isRequired,
+    type: propTypes.string.isRequired,
+    id: propTypes.string.isRequired,
+  }).isRequired,
+  index: propTypes.number.isRequired,
 };
 
 export { MyRecipesCard };
