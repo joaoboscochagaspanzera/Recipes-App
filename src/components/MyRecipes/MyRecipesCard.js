@@ -16,13 +16,14 @@ function MyRecipesCard({ recipe:
           height={ 200 }
           data-testid={ `${index}-horizontal-image` }
           src={ image }
-          alt={ name }
+          alt={ image }
         />
         <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
       </Link>
       <p data-testid={ `${index}-horizontal-top-text` }>
         { alcoholicOrNot || `${nationality} - ${category}` }
       </p>
+      <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
       <ButtonCopyClipboard
         testId={ `${index}-horizontal-share-btn` }
         textToCopy={ `${window.location.origin}/${type}s/${id}` }
@@ -35,7 +36,7 @@ function MyRecipesCard({ recipe:
       >
         <img
           src={ blackHeartIcon }
-          alt="botão compartilhar receita"
+          alt="Icon"
         />
       </button>
     </>
