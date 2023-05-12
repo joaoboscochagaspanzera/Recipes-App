@@ -1,5 +1,5 @@
 import React from 'react';
-import { act, screen, waitFor } from '@testing-library/react';
+import { act, cleanup, screen, waitFor } from '@testing-library/react';
 
 import copyToClipboard from 'clipboard-copy';
 
@@ -35,6 +35,7 @@ describe('Testes RecipeDetails.js page', () => {
 
   afterEach(() => {
     jest.restoreAllMocks();
+    cleanup();
   });
 
   it('should not render start recipe button if recipe was finished', async () => {
@@ -45,7 +46,7 @@ describe('Testes RecipeDetails.js page', () => {
 
     localStorage.setItem('doneRecipes', JSON.stringify([{ ...recipe, id: String(recipe.id) }]));
 
-    renderWithRouter(<App />, { location: `/meals/${recipe.id}/in-progress` });
+    await act(async () => renderWithRouter(<App />, { location: `/meals/${recipe.id}/in-progress` }));
 
     await waitFor(() => screen.getByTestId(RECIPE_TITLE));
 
@@ -68,10 +69,11 @@ describe('Testes RecipeDetails.js page', () => {
       meals: {},
     }));
 
-    const { history } = renderWithRouter(
-      <App />,
-      { location: `/drinks/${recipe.id}/in-progress` },
-    );
+    let history;
+    await act(async () => {
+      history = renderWithRouter(<App />, { location: `/meals/${recipe.id}/in-progress` })
+        .history;
+    });
 
     await waitFor(() => screen.getByTestId(RECIPE_TITLE));
 
