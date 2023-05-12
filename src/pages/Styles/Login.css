@@ -1,4 +1,4 @@
-.login {
+/* .login {
   background: linear-gradient(to bottom, #00416A, #E4E5E6); 
   height: 100vh;
   display: flex;
@@ -48,7 +48,7 @@ form {
 
 .bttn {
     background: linear-gradient(to bottom, #4CAF50, #2E8B57); /* degradê de cores */
-    border: none;
+    /* border: none;
     color: white;
     padding: 12px 24px;
     text-align: center;
@@ -63,4 +63,4 @@ form {
 
 .bttn:hover {
     background: linear-gradient(to bottom, #2E8B57, #4CAF50);
-  }
+  /* } */ 
