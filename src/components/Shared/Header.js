@@ -1,10 +1,11 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 
 function Header() {
   const location = useLocation();
+  const history = useHistory();
   const showSearchIcon = ['/meals', '/drinks'].includes(location.pathname);
 
   function getPageTitle() {
@@ -23,9 +24,20 @@ function Header() {
       return '';
     }
   }
+
+  function handleProfileButtonClick() {
+    history.push('/profile');
+  }
+
   return (
     <header>
-      <img src={ profileIcon } alt="Profile" data-testid="profile-top-btn" />
+      <button onClick={ handleProfileButtonClick }>
+        <img
+          src={ profileIcon }
+          alt="Profile"
+          data-testid="profile-top-btn"
+        />
+      </button>
       {showSearchIcon && (
         <img src={ searchIcon } alt="Search" data-testid="search-top-btn" />
       )}
