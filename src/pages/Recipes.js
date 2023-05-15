@@ -40,7 +40,6 @@ function Recipes() {
 
   return (
     <>
-      <h1>Drinks</h1>
       <Header />
       <RecipesFilterBar />
       <RecipesFeed recipes={ recipes[recipeType] } />
