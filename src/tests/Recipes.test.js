@@ -1,8 +1,11 @@
 import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
-import App from '../App';
+import { act, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import { renderWithRouter } from './helpers/renderWithRouter';
 import { fakeMeals, fakeMealsCategories } from './mocks/mockApi';
+
+import App from '../App';
 
 const fakeFetchRecipes = async () => ({
   json: async () => ({
@@ -35,5 +38,17 @@ describe('Testes Recipes.js page', () => {
     const divFirsRecipeEl = await waitFor(() => screen.getByTestId('0-recipe-card'));
 
     expect(divFirsRecipeEl).toBeInTheDocument();
+  });
+
+  it('should be toggle search bar', async () => {
+    renderWithRouter(<App />, { location: '/meals' });
+
+    const iconSearchElement = screen.getByTestId('search-top-btn');
+
+    act(() => userEvent.click(iconSearchElement));
+
+    const inputSearchElement = screen.getByTestId('search-input');
+
+    expect(inputSearchElement).toBeInTheDocument();
   });
 });

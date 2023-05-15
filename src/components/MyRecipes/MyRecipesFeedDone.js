@@ -11,8 +11,6 @@ function MyRecipesFeedDone({ recipes }) {
             key={ recipe.id }
             recipe={ recipe }
             index={ index }
-            doneDate={ recipe.doneDate }
-            tags={ recipe.tags }
           />
         ))
       }

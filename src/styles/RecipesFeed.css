@@ -1,0 +1,11 @@
+.recipes-feed {
+  align-items: center;
+  display: grid;
+  flex-wrap: wrap;
+  grid-auto-rows: 1fr;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fill, 150px);
+  justify-content: center;
+  margin: 2rem auto 4rem;
+  max-width: 900px;
+}

@@ -96,9 +96,9 @@ export function RecipesProvider({ children }) {
     drinks: [],
     meals: [],
   });
-
   const [recipeType, setRecipeType] = useState('');
   const [categoryFilterSelected, setCategoryFilterSelected] = useState('All');
+  const [showSearchBar, setShowSearchBar] = useState(false);
 
   const [
     storagedFavoritedRecipes,
@@ -169,7 +169,7 @@ export function RecipesProvider({ children }) {
       name: recipe.name,
       image: recipe.image,
       tags: recipe.tags,
-      doneDate: new Date(),
+      doneDate: new Date().toISOString(),
     };
     setStoragedDoneRecipes([...storagedDoneRecipes, recipeToStorage]);
   }, [setStoragedDoneRecipes, storagedDoneRecipes]);
@@ -191,6 +191,8 @@ export function RecipesProvider({ children }) {
     setRecipesInProgress: setStoragedRecipesInProgress,
     startOrEditRecipe,
     finishRecipe,
+    showSearchBar,
+    setShowSearchBar,
   }), [
     addRecipeToFavorites,
     categoryFilterSelected,
@@ -205,6 +207,8 @@ export function RecipesProvider({ children }) {
     startOrEditRecipe,
     toggleFavoriteRecipe,
     finishRecipe,
+    showSearchBar,
+    setShowSearchBar,
   ]);
 
   return (
