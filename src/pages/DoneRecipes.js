@@ -24,6 +24,7 @@ function DoneRecipes() {
   useEffect(() => {
     handleFilterDoneRecipes(filterSelected);
   }, [doneRecipes, filterSelected, handleFilterDoneRecipes]);
+
   return (
     <>
       <Header />
