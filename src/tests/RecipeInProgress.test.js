@@ -44,9 +44,12 @@ describe('Testes RecipeDetails.js page', () => {
 
     const recipe = mapRecipe(fakeMeals[0], 'meals');
 
-    localStorage.setItem('doneRecipes', JSON.stringify([{ ...recipe, id: String(recipe.id) }]));
+    localStorage.setItem('doneRecipes', JSON.stringify([{ ...recipe, id: String(recipe.id), doneDate: new Date().toISOString() }]));
 
-    await act(async () => renderWithRouter(<App />, { location: `/meals/${recipe.id}/in-progress` }));
+    await act(async () => renderWithRouter(
+      <App />,
+      { location: `/meals/${recipe.id}/in-progress` },
+    ));
 
     await waitFor(() => screen.getByTestId(RECIPE_TITLE));
 
@@ -69,11 +72,10 @@ describe('Testes RecipeDetails.js page', () => {
       meals: {},
     }));
 
-    let history;
-    await act(async () => {
-      history = renderWithRouter(<App />, { location: `/meals/${recipe.id}/in-progress` })
-        .history;
-    });
+    const { history } = renderWithRouter(
+      <App />,
+      { location: `/drinks/${recipe.id}/in-progress` },
+    );
 
     await waitFor(() => screen.getByTestId(RECIPE_TITLE));
 
