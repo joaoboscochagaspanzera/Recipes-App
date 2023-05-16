@@ -9,7 +9,6 @@ function MyRecipesCard({ recipe:
   const { removeRecipeFromFavorites } = useRecipes();
   return (
     <>
-      <h1>MyRecipesCard</h1>
       <Link to={ `/${type}s/${id}` }>
         <img
           width={ 200 }

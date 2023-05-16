@@ -1,0 +1,41 @@
+/* .my-recipes-filter-bar {
+  background-color: aqua;
+} */
+
+.div-favoriteRecipes {
+  height: 800px;
+  position: relative;
+  width: 360px;
+}
+
+.section-favoriteRecipes {
+  height: 435px;
+  left: 19px;
+  position: absolute;
+  top: 298px;
+  width: 318px;
+
+}
+
+.drink-btn div img {
+  display: flex;
+  filter: brightness(0) saturate(100%)
+    invert(89%) sepia(15%) saturate(2976%)
+    hue-rotate(333deg) brightness(106%) contrast(94%);
+  height: 40px;
+  justify-content: center;
+}
+
+
+.drink-btn {
+  background-color: white;
+  border: none;
+}
+
+.drink-btn div {
+  border: 2.669px solid #fcc436;
+  border-radius: 66.72px;
+  box-sizing: border-box;
+  height: 66.72px;
+  width: 66.72px;
+}
