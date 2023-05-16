@@ -39,3 +39,20 @@ header button {
 .page-title {
   color: white;
 }
+
+.recipeAppIcon {
+  height: 39.28px;
+  left: 26px;
+  position: absolute;
+  top: 6px;
+  width: 42.6px;
+}
+
+.logoRecipesapp {
+  height: 16.97px;
+  left: 89.37px;
+  position: absolute;
+  top: 20.78px;
+  width: 109.13px;
+
+}
