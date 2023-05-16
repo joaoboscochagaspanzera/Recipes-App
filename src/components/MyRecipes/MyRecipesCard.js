@@ -36,7 +36,7 @@ function MyRecipesCard({ recipe:
       >
         <img
           src={ blackHeartIcon }
-          alt="Icon"
+          alt="Icon "
         />
       </button>
     </>

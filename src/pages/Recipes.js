@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-
+import SearchBar from '../components/Recipes/SearchBar';
 import { Footer } from '../components/Shared/Footer';
 import { Header } from '../components/Shared/Header';
 import { RecipesFilterBar } from '../components/Recipes/RecipesFilterBar';
@@ -45,6 +45,7 @@ function Recipes() {
       <RecipesFilterBar />
       <RecipesFeed recipes={ recipes[recipeType] } />
       <Footer />
+      <SearchBar />
     </>
   );
 }
