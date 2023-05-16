@@ -1,12 +1,13 @@
 import React, { useCallback } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom/cjs/react-router-dom';
 import { useRecipes } from '../../hooks/useRecipes';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
+import '../../styles/Header.css';
 
 function Header() {
   const location = useLocation();
-  const history = useHistory();
   const showSearchIcon = ['/meals', '/drinks'].includes(location.pathname);
 
   const { showSearchBar, setShowSearchBar } = useRecipes();
@@ -28,30 +29,37 @@ function Header() {
     }
   }
 
-  function handleProfileButtonClick() {
-    history.push('/profile');
-  }
-
   const handleToggleSearchBar = useCallback(() => {
     setShowSearchBar(!showSearchBar);
   }, [setShowSearchBar, showSearchBar]);
 
   return (
-    <header>
-      <button onClick={ handleProfileButtonClick }>
-        <img
-          src={ profileIcon }
-          alt="Profile"
-          data-testid="profile-top-btn"
-        />
-      </button>
-      {showSearchIcon && (
-        <button onClick={ handleToggleSearchBar }>
-          <img src={ searchIcon } alt="Search" data-testid="search-top-btn" />
-        </button>
-      )}
-      <h1 data-testid="page-title">{getPageTitle()}</h1>
-    </header>
+    <>
+      <header data-testid="header">
+        <Link
+          to="/profile"
+        >
+          <img
+            className="profile-icon"
+            src={ profileIcon }
+            alt="Profile"
+            data-testid="profile-top-btn"
+          />
+        </Link>
+        {showSearchIcon && (
+          <button onClick={ handleToggleSearchBar }>
+            <img
+              className="search-icon"
+              src={ searchIcon }
+              alt="Search"
+              data-testid="search-top-btn"
+            />
+          </button>
+        )}
+        <h1 className="page-title-header">Recipes app</h1>
+      </header>
+      <h1 className="page-title" data-testid="page-title">{getPageTitle()}</h1>
+    </>
   );
 }
 
