@@ -12,16 +12,18 @@ import {
   useRecipes,
   getBaseUrl,
 } from '../hooks/useRecipes';
-import { useUser } from '../hooks/useUser';
+import { SearchBar } from '../components/Shared/SearchBar';
 
 function Recipes() {
   const { pathname } = useLocation();
   const recipeType = pathname.split('/')[1];
 
-  const { recipes, setRecipes, setRecipeType } = useRecipes();
-
-  const { user } = useUser();
-  console.log(user);
+  const {
+    recipes,
+    setRecipes,
+    setRecipeType,
+    showSearchBar,
+  } = useRecipes();
 
   const { fetchData } = useFetch();
 
@@ -40,8 +42,10 @@ function Recipes() {
 
   return (
     <>
-      <h1>Drinks</h1>
       <Header />
+      {showSearchBar && (
+        <SearchBar />
+      )}
       <RecipesFilterBar />
       <RecipesFeed recipes={ recipes[recipeType] } />
       <Footer />
