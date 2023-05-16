@@ -5,6 +5,8 @@ import { getBaseUrl, getRecipeCategories, useRecipes } from '../../hooks/useReci
 
 import { RecipesFilterItem } from './RecipesFilterItem';
 
+import '../../styles/RecipesFilterBar.css';
+
 function RecipesFilterBar() {
   const [recipesCategories, setRecipesCategories] = useState([]);
   const { recipeType } = useRecipes();
@@ -26,13 +28,12 @@ function RecipesFilterBar() {
   }, [fetchData, recipeType]);
 
   return (
-    <>
-      <h1>RecipesFilterBar</h1>
+    <div className="recipes-filter-bar">
       <RecipesFilterItem category="All" />
       { recipesCategories.map((recipeCategory) => (
         <RecipesFilterItem key={ recipeCategory } category={ recipeCategory } />
       )) }
-    </>
+    </div>
   );
 }
 

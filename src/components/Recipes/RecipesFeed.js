@@ -4,10 +4,11 @@ import { recipePropType } from '../../types/recipe.type';
 
 import { RecipesCard } from './RecipesCard';
 
+import '../../styles/RecipesFeed.css';
+
 function RecipesFeed({ recipes, isRecommended = false }) {
   return (
-    <>
-      <h1>RecipesFeed</h1>
+    <div className="recipes-feed">
       { isRecommended
         ? (
           recipes.map(({ element, index }) => (
@@ -29,7 +30,7 @@ function RecipesFeed({ recipes, isRecommended = false }) {
             />
           ))
         ) }
-    </>
+    </div>
   );
 }
 

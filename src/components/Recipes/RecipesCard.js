@@ -3,25 +3,38 @@ import { Link } from 'react-router-dom';
 
 import { recipePropType } from '../../types/recipe.type';
 
+import { SkeletonImageRecipeCard } from './SkeletonImageRecipeCard';
+
+import '../../styles/RecipesCard.css';
+
 function RecipesCard({ recipe, index, isRecommended = false }) {
   return (
     <Link
       to={ `/${recipe.type}/${recipe.id}` }
-      data-testid={ `${index}-${isRecommended ? 'recommendation-card' : 'recipe-card'}` }
+      data-testid={
+        `${index}-${isRecommended ? 'recommendation-card' : 'recipe-card'}`
+      }
+      className="recipe-card-item"
     >
-      <p
-        data-testid={ `${index}-${isRecommended ? 'recommendation-title' : 'card-name'}` }
+      <div className="recipe-card-item-content">
+        <SkeletonImageRecipeCard
+          src={ recipe.image }
+          alt={ recipe.name }
+          testId={ `${index}-card-img` }
+          width={ 150 }
+        />
+        <p
+          className="recipe-card-item-name"
+          data-testid={
+            `${index}-${isRecommended ? 'recommendation-title' : 'card-name'}`
+          }
+        >
+          {recipe.name}
 
-      >
-        {recipe.name}
-
-      </p>
-      <img
-        src={ recipe.image }
-        alt={ recipe.name }
-        data-testid={ `${index}-card-img` }
-      />
+        </p>
+      </div>
     </Link>
+
   );
 }
 
