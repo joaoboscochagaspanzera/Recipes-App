@@ -31,7 +31,7 @@ function RecipesFilterItem({ category }) {
     })
       .then((data) => {
         setCategoryFilterSelected(category);
-        setRecipes({ [recipeType]: data });
+        setRecipes((prevState) => ({ ...prevState, [recipeType]: data }));
       })
       .catch((err) => console.log(err));
   }, [category, fetchData, recipeType, setCategoryFilterSelected, setRecipes, url]);
