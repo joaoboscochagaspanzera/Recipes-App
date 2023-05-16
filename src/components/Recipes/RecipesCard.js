@@ -3,20 +3,24 @@ import { Link } from 'react-router-dom';
 
 import { recipePropType } from '../../types/recipe.type';
 
+import { SkeletonImageRecipeCard } from './SkeletonImageRecipeCard';
+
 import '../../styles/RecipesCard.css';
 
 function RecipesCard({ recipe, index, isRecommended = false }) {
   return (
     <Link
       to={ `/${recipe.type}/${recipe.id}` }
-      data-testid={ `${index}-${isRecommended ? 'recommendation-card' : 'recipe-card'}` }
+      data-testid={
+        `${index}-${isRecommended ? 'recommendation-card' : 'recipe-card'}`
+      }
       className="recipe-card-item"
     >
       <div className="recipe-card-item-content">
-        <img
+        <SkeletonImageRecipeCard
           src={ recipe.image }
           alt={ recipe.name }
-          data-testid={ `${index}-card-img` }
+          testId={ `${index}-card-img` }
           width={ 150 }
         />
         <p
@@ -30,6 +34,7 @@ function RecipesCard({ recipe, index, isRecommended = false }) {
         </p>
       </div>
     </Link>
+
   );
 }
 
