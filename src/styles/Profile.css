@@ -1,0 +1,57 @@
+.done-recipes {
+  height: 38.69px;
+  left: 70px;
+  position: absolute;
+  top: 261px;
+  width: 217.44px;
+}
+
+.favorite-recipes {
+  height: 38.69px;
+  left: 70px;
+  position: absolute;
+  top: 347px;
+  width: 217px;
+}
+
+.logout {
+  height: 38.69px;
+  left: 69px;
+  position: absolute;
+  top: 433px;
+  width: 220px;
+}
+
+.profile-email {
+  height: 12px;
+  left: 44px;
+  position: absolute;
+  top: 188px;
+  width: 273px;
+}
+
+.profile-name {
+  color: #41197f;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 900;
+  height: 21px;
+  left: 107px;
+  letter-spacing: 0.105em;
+  line-height: 20px;
+  position: absolute;
+
+  /* identical to box height */
+  text-align: center;
+  text-transform: uppercase;
+  top: 126px;
+  width: 147px;
+}
+
+.profile-icon2 {
+  height: 28.71px;
+  left: 166px;
+  position: absolute;
+  top: 83px;
+  width: 28.71px;
+}
