@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { useCallback } from 'react';
 import { useForm } from '../hooks/useForm';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import './Styles/Login.css';
-import Recipes from './Styles/recipes.png';
-import Tomate from './Styles/tomate.png';
+import '../styles/Login.css';
+import Recipes from '../images/recipeslogo.svg';
+import Tomate from '../images/tomate.svg';
 
 function Login() {
   const inputEmail = useForm();
@@ -36,8 +36,8 @@ function Login() {
         alt="logo tomate"
         title="logo tomate"
       />
-      <h1 className="login-h1">LOGIN</h1>
       <form className="form">
+        <h1 className="login-h1">LOGIN</h1>
         <input
           className="email"
           data-testid="email-input"
