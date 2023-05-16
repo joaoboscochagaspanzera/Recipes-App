@@ -6,8 +6,9 @@ import '../../styles/SkeletonImageRecipeCard.css';
 function SkeletonImageRecipeCard({ src, testId, alt, width }) {
   const [showSkeleton, setShowSkeleton] = useState(true);
 
-  const onLoadImage = useCallback(() => {
+  const onLoadImage = useCallback(({ target }) => {
     setShowSkeleton(false);
+    target.style.opacity = 1;
   }, []);
 
   return (
@@ -22,6 +23,7 @@ function SkeletonImageRecipeCard({ src, testId, alt, width }) {
         style={ {
           width: showSkeleton ? '0' : '100%',
         } }
+        className="recipe-card-img"
       />
     </>
   );
