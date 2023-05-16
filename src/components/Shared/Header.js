@@ -41,14 +41,12 @@ function Header() {
         <img
           className="recipeAppIcon"
           src={ recipeAppIcon }
-          alt="Search"
-          data-testid="search-top-btn"
+          alt="recipe app icon"
         />
         <img
           className="logoRecipesapp"
           src={ logoRecipesapp }
-          alt="Search"
-          data-testid="search-top-btn"
+          alt="logo recipes app"
         />
         <Link
           to="/profile"

@@ -18,3 +18,8 @@ footer {
   margin-right: 36px;
   margin-top: 6px;
 }
+
+footer img path {
+  fill: blue;
+  stroke: blue;
+}
