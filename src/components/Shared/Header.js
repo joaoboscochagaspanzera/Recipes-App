@@ -47,9 +47,8 @@ function Header() {
           />
         </Link>
         {showSearchIcon && (
-          <button onClick={ handleToggleSearchBar }>
+          <button className="search-icon" onClick={ handleToggleSearchBar }>
             <img
-              className="search-icon"
               src={ searchIcon }
               alt="Search"
               data-testid="search-top-btn"
