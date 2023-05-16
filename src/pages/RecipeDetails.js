@@ -67,13 +67,16 @@ function RecipeDetails() {
         <RecipeIngredients recipe={ recipe } />
         <RecipeInstruction recipe={ recipe } />
         {recipeType === 'meals' && (
-          <embed
-            type="video/webm"
-            src={ recipe.video_url }
-            width="250"
-            height="200"
-            data-testid="video"
-          />
+          <>
+            <h2>Video</h2>
+            <embed
+              type="video/webm"
+              src={ recipe.video_url }
+              width="336px"
+              height="205.09px"
+              data-testid="video"
+            />
+          </>
         )}
         <ButtonCopyClipboard
           testId="share-btn"
@@ -81,6 +84,7 @@ function RecipeDetails() {
           textToCopy={ window.location.href }
         />
         <ButtonFavoriteRecipe recipe={ recipe } />
+        <h2>Recommended</h2>
         <RecommendedRecipes type={ recommendedRecipesType } />
         { !recipeIsFinished && (
           <button
@@ -89,7 +93,7 @@ function RecipeDetails() {
             style={ {
               position: 'fixed',
               bottom: 0,
-              right: '50%',
+              // right: '50%',
             } }
           >
             { recipeIsInProgress ? 'Continue Recipe' : 'Start Recipe'}
