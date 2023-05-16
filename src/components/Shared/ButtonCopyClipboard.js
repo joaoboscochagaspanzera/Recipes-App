@@ -2,8 +2,6 @@ import { useCallback, useState } from 'react';
 import propTypes from 'prop-types';
 import copyToClipboard from 'clipboard-copy';
 
-import shareIcon from '../../images/shareIcon.svg';
-
 function ButtonCopyClipboard({ text, textToCopy, testId }) {
   const [linkWasCopyToClipboard, setLinkWasCopyToClipboard] = useState(false);
   const handleClickShareButton = useCallback(() => {
@@ -13,11 +11,12 @@ function ButtonCopyClipboard({ text, textToCopy, testId }) {
   return (
     <>
       <button
-        src={ shareIcon }
+        style={ { border: 'none', background: 'white' } }
+        src="../icons/divers/shareIcon.svg"
         data-testid={ testId }
         onClick={ handleClickShareButton }
       >
-        <img src={ shareIcon } alt="share icon" />
+        <img src="../icons/divers/shareIcon.svg" alt="share icon" />
         { text }
       </button>
       { linkWasCopyToClipboard && (
