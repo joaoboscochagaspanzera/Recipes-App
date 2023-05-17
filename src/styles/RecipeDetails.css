@@ -14,7 +14,7 @@
   margin-bottom: 10px;
 }
 
-.recipe-video h2 {
+h2 {
   height: auto;
 
   font-family: 'Epilogue';
@@ -25,4 +25,10 @@
   padding: 15px;
 
   color: #1A1B1C;
+}
+
+.carousel {
+  background-color: red;
+  /* height: 100vmin; */
+  margin: 0px;
 }

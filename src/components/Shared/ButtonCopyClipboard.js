@@ -27,7 +27,6 @@ function ButtonCopyClipboard({ text, textToCopy, testId }) {
 }
 
 ButtonCopyClipboard.propTypes = {
-  text: propTypes.string.isRequired,
   textToCopy: propTypes.string.isRequired,
   testId: propTypes.string.isRequired,
 };
