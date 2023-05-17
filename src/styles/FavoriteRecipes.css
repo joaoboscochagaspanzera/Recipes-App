@@ -112,3 +112,16 @@
   font-size: small;
   text-align: center;
 }
+
+h1 {
+  font-style: normal;
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 20px;
+  
+  text-align: center;
+  letter-spacing: 0.105em;
+  text-transform: uppercase;
+  
+  color: #41197F;
+}

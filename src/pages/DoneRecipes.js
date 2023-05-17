@@ -4,6 +4,8 @@ import { MyRecipesFeedDone } from '../components/MyRecipes/MyRecipesFeedDone';
 import { MyRecipesFilterBar } from '../components/MyRecipes/MyRecipesFilterBar';
 import { useRecipes } from '../hooks/useRecipes';
 
+import '../styles/DoneRecipes.css';
+
 function DoneRecipes() {
   const { doneRecipes } = useRecipes();
   const [
@@ -28,6 +30,7 @@ function DoneRecipes() {
   return (
     <>
       <Header />
+      <h1>Done Recipes</h1>
       <MyRecipesFilterBar handleFilterRecipes={ handleFilterDoneRecipes } />
       <MyRecipesFeedDone recipes={ filteredDoneRecipes } />
     </>

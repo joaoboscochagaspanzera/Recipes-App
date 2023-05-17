@@ -30,6 +30,7 @@ function FavoriteRecipes() {
 
     <div className="div-favoriteRecipes">
       <Header />
+      <h1>Favorite Recipes</h1>
       <MyRecipesFilterBar handleFilterRecipes={ handleFilterFavoriteRecipes } />
       <MyRecipesFeed recipes={ filteredFavoritesRecipes } />
     </div>
