@@ -15,7 +15,7 @@ function MyRecipesCard({ recipe:
           height={ 200 }
           data-testid={ `${index}-horizontal-image` }
           src={ image }
-          alt={ name }
+          alt={ image }
         />
       </Link>
       <div className="container-name-btns">
