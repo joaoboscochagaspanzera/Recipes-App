@@ -66,7 +66,7 @@ MyRecipesCardDone.propTypes = {
     type: propTypes.string.isRequired,
     id: propTypes.string.isRequired,
     doneDate: propTypes.string.isRequired,
-    tags: propTypes.string.isRequired,
+    tags: propTypes.arrayOf(propTypes.string),
   }).isRequired,
   index: propTypes.number.isRequired,
 };
