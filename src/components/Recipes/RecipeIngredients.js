@@ -5,6 +5,8 @@ import { useRecipes } from '../../hooks/useRecipes';
 
 import { recipePropType } from '../../types/recipe.type';
 
+import '../../styles/RecipeIngredients.css';
+
 function RecipeIngredients({ recipe, inProgress = false }) {
   const { recipesInProgress, startOrEditRecipe } = useRecipes();
 
@@ -32,36 +34,38 @@ function RecipeIngredients({ recipe, inProgress = false }) {
   return (
     inProgress
       ? (
-        recipe.ingredients.map(({ name, meansure, id }, index) => {
-          const ingredientWasUsed = ingredientsUsed
-            .find((ingredient) => ingredient.id === id);
+        <div className="recipe-ingredients-todo">
+          { recipe.ingredients.map(({ name, meansure, id }, index) => {
+            const ingredientWasUsed = ingredientsUsed
+              .find((ingredient) => ingredient.id === id);
 
-          const ingredient = { name, meansure, id };
-          return (
-            <label
-              data-testid={ `${index}-ingredient-step` }
-              key={ index }
-              style={ {
-                textDecoration: ingredientWasUsed
-                  ? 'line-through solid rgb(0, 0, 0)'
-                  : '',
-              } }
-            >
-              <input
-                type="checkbox"
-                name="ingredient"
-                checked={ ingredientWasUsed }
-                onChange={ () => handleToggleCheckIngredient({ ingredient }) }
-              />
-              {meansure}
-              {' '}
-              {name}
-            </label>
-          );
-        })
+            const ingredient = { name, meansure, id };
+            return (
+              <label
+                data-testid={ `${index}-ingredient-step` }
+                key={ index }
+                style={ {
+                  textDecoration: ingredientWasUsed
+                    ? 'line-through solid rgb(0, 0, 0)'
+                    : '',
+                } }
+              >
+                <input
+                  type="checkbox"
+                  name="ingredient"
+                  checked={ ingredientWasUsed }
+                  onChange={ () => handleToggleCheckIngredient({ ingredient }) }
+                />
+                {meansure}
+                {' '}
+                {name}
+              </label>
+            );
+          })}
+        </div>
       )
       : (
-        <ul>
+        <ul className="recipe-ingredients-list">
           {recipe.ingredients.map(({ name, meansure }, index) => (
             <li
               key={ index }

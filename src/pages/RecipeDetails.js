@@ -93,7 +93,7 @@ function RecipeDetails() {
             style={ {
               position: 'fixed',
               bottom: 0,
-              // right: '50%',
+              right: '50%',
             } }
           >
             { recipeIsInProgress ? 'Continue Recipe' : 'Start Recipe'}
