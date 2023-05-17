@@ -15,8 +15,7 @@ function MyRecipesCardDone({ recipe:
     doneDate,
   }, index }) {
   return (
-    <>
-      <h1>MyRecipesCardDone</h1>
+    <div className="recipe-card-favorite">
       <Link to={ `/${type}s/${id}` }>
         <img
           width={ 200 }
@@ -25,29 +24,35 @@ function MyRecipesCardDone({ recipe:
           src={ image }
           alt={ name }
         />
-        <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
       </Link>
-      <p data-testid={ `${index}-horizontal-top-text` }>
-        { alcoholicOrNot || `${nationality} - ${category}` }
-      </p>
-      <ButtonCopyClipboard
-        testId={ `${index}-horizontal-share-btn` }
-        textToCopy={ `${window.location.origin}/${type}s/${id}` }
-        text="compartilhar"
-      />
-      <p data-testid={ `${index}-horizontal-done-date` }>
-        { doneDate }
-      </p>
-      { tags.map((tag, i) => (
-        <span
-          key={ i }
-          data-testid={ `${index}-${tag}-horizontal-tag` }
+      <div className="container-name-btns">
+        <Link to={ `/${type}s/${id}` }>
+          <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
+        </Link>
+        <p data-testid={ `${index}-horizontal-top-text` }>
+          { alcoholicOrNot || `${nationality} - ${category}` }
+        </p>
+        <ButtonCopyClipboard
+          testId={ `${index}-horizontal-share-btn` }
+          textToCopy={ `${window.location.origin}/${type}s/${id}` }
+          text=""
+        />
+        <p
+          className="done-date"
+          data-testid={ `${index}-horizontal-done-date` }
         >
-          { tag }
-        </span>
-      ))}
-
-    </>
+          { doneDate }
+        </p>
+        { tags.map((tag, i) => (
+          <span
+            key={ i }
+            data-testid={ `${index}-${tag}-horizontal-tag` }
+          >
+            { tag }
+          </span>
+        ))}
+      </div>
+    </div>
   );
 }
 

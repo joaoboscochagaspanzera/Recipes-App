@@ -3,8 +3,7 @@ import { MyRecipesCardDone } from './MyRecipesCardDone';
 
 function MyRecipesFeedDone({ recipes }) {
   return (
-    <>
-      <h1>MyRecipesFeedDone</h1>
+    <section className="section-favoriteRecipes">
       {
         recipes.map((recipe, index) => (
           <MyRecipesCardDone
@@ -14,7 +13,7 @@ function MyRecipesFeedDone({ recipes }) {
           />
         ))
       }
-    </>
+    </section>
   );
 }
 

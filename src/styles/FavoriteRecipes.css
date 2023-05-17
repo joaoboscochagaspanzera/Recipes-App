@@ -107,3 +107,8 @@
   background-color: white;
   border: none;
 }
+
+.done-date {
+  font-size: small;
+  text-align: center;
+}
