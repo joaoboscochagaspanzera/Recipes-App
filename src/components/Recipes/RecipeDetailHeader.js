@@ -23,7 +23,7 @@ function RecipeDetailHeader({ recipe }) {
           <ButtonCopyClipboard
             className="btn-copy-clipboard"
             testId="share-btn"
-            textToCopy={ window.location.href }
+            textToCopy={ `${window.location.origin}/${recipe.type}/${recipe.id}` }
           />
           <ButtonFavoriteRecipe
             className="btn-favorite-recipe"

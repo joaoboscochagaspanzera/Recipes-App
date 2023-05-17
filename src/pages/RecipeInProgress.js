@@ -68,7 +68,7 @@ function RecipeInProgress() {
           data-testid="finish-recipe-btn"
           onClick={ handleClickFinishRecipe }
         >
-          FINISH RECIPE
+          Finish Recipe
         </button>
       </>
     )
