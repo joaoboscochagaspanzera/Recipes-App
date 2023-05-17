@@ -24,18 +24,20 @@ function Login() {
 
   return (
     <div className="login">
-      <img
-        className="recipes-logo"
-        src={ Recipes }
-        alt="logo recipes"
-        title="logo recipes"
-      />
-      <img
-        className="tomate-logo"
-        src={ Tomate }
-        alt="logo tomate"
-        title="logo tomate"
-      />
+      <div className="logo-wrapper">
+        <img
+          className="recipes-logo"
+          src={ Recipes }
+          alt="logo recipes"
+          title="logo recipes"
+        />
+        <img
+          className="tomate-logo"
+          src={ Tomate }
+          alt="logo tomate"
+          title="logo tomate"
+        />
+      </div>
       <form className="form">
         <h1 className="login-h1">LOGIN</h1>
         <input
