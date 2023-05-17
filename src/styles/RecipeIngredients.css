@@ -1,19 +1,5 @@
-.recipe-detail-header-h2 {
-  /* position: absolute; */
-  width: 142.8px;
-  height: 21px;
-  left: 23.01px;
-  top: 697px;
-
-  font-family: 'Epilogue';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 20px;
-/* identical to box height */
-
-
-  color: red;
+.recipe-ingredients-todo {
+  background-color: blue;
 }
 
 /* ANTES DE COMECAR A RECEITA */
@@ -27,7 +13,7 @@
   width: 335px;
   height: auto;
   left: 10px;
-  top: 215px;
+  top: 235px;
   
   background: #FFFFFF;
   border: 0.554397px solid #B1B1B1;
@@ -45,8 +31,8 @@
   padding-bottom: 10px;
   width: 335px;
   height: auto;
-  left: 14px;
-  top: 226px;
+  left: 10px;
+  top: 235px;
   
   display: flex;
   flex-direction: column;

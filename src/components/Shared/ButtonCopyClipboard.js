@@ -11,7 +11,7 @@ function ButtonCopyClipboard({ text, textToCopy, testId }) {
   return (
     <>
       <button
-        style={ { border: 'none', background: 'white' } }
+        style={ { border: 'none', background: 'none' } }
         src="../icons/divers/shareIcon.svg"
         data-testid={ testId }
         onClick={ handleClickShareButton }

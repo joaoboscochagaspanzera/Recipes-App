@@ -7,14 +7,28 @@
   background-color: red;
 }
 
-/* categoria da receita */
+/* container da imagem da receita */
+.recipe-image-container {
+  top: 0px;
+  width: 361px;
+  height: 162px;
+}
 
+/* imagem da receita */
+.recipe-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* categoria da receita */
 /* imagem da categoria da receita */
-.recipe-category-header img { 
+.category-image { 
   position: absolute;
   width: 19.8px;
   height: 16.32px;
-  left: 23.28px;
+  left: 20px;
   top: 22px;
   }
 
@@ -24,7 +38,7 @@
   width: 72px;
   height: 11px;
   left: 53.01px;
-  top: 25px;
+  top: 26px;
 
   font-family: 'Epilogue';
   font-style: normal;
@@ -34,7 +48,6 @@
   
   color: #FCC436;
 }
-
 
 /* nome da receita */
 .recipe-detail-header h1 {
@@ -57,17 +70,29 @@
   text-transform: uppercase;
 }
 
-/* container da imagem da receita */
-.recipe-image-container {
-  top: 0px;
-  width: 362.01px;
-  height: 161.85px;
+
+/* icones compartilhar e favoritar */
+.icons {
+  position: absolute;
 }
 
-/* imagem da receita */
-.recipe-image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+.icons button img {
+  left: 100px;
+  top: 20px;
+  width: 90%;
+  height: 90%;
+  position: relative;
+}
+
+.recipe-detail-header-h2 {
+  height: auto;
+
+  font-family: 'Epilogue';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 30px;
+  line-height: 20px;
+  padding: 15px;
+
+  color: #1A1B1C;
 }

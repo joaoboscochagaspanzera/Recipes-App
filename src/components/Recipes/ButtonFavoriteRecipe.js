@@ -23,6 +23,7 @@ function ButtonFavoriteRecipe({ recipe }) {
 
   return (
     <button
+      style={ { border: 'none', background: 'none' } }
       onClick={ handleClickFavoriteButton }
       data-testid="favorite-btn"
       src={ recipeIsFavorite ? blackHeartIcon : whiteHeartIcon }
@@ -31,7 +32,6 @@ function ButtonFavoriteRecipe({ recipe }) {
         src={ recipeIsFavorite ? blackHeartIcon : whiteHeartIcon }
         alt="heart"
       />
-      Favoritar
     </button>
   );
 }

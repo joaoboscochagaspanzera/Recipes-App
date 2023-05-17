@@ -2,7 +2,6 @@ import { useEffect, useState, useCallback } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 
 import { RecipeDetailHeader } from '../components/Recipes/RecipeDetailHeader';
-import { ButtonCopyClipboard } from '../components/Shared/ButtonCopyClipboard';
 
 import {
   getRecipeDetail,
@@ -14,7 +13,6 @@ import { useFetch } from '../hooks/useFetch';
 import { RecipeIngredients } from '../components/Recipes/RecipeIngredients';
 import { RecipeInstruction } from '../components/Recipes/RecipeInstruction';
 import { RecommendedRecipes } from '../components/Recipes/RecommendedRecipes';
-import { ButtonFavoriteRecipe } from '../components/Recipes/ButtonFavoriteRecipe';
 
 function RecipeDetails() {
   const [recipe, setRecipe] = useState();
@@ -78,12 +76,6 @@ function RecipeDetails() {
             />
           </>
         )}
-        <ButtonCopyClipboard
-          testId="share-btn"
-          text="Compartilhar"
-          textToCopy={ window.location.href }
-        />
-        <ButtonFavoriteRecipe recipe={ recipe } />
         <h2>Recommended</h2>
         <RecommendedRecipes type={ recommendedRecipesType } />
         { !recipeIsFinished && (

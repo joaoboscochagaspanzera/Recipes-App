@@ -58,8 +58,8 @@ function RecipeInProgress() {
           <embed
             type="video/webm"
             src={ recipe.video_url }
-            width="250"
-            height="200"
+            width="336px"
+            height="205.09px"
             data-testid="video"
           />
         )}
