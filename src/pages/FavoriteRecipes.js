@@ -4,6 +4,8 @@ import { MyRecipesFeed } from '../components/MyRecipes/MyRecipesFeed';
 import { MyRecipesFilterBar } from '../components/MyRecipes/MyRecipesFilterBar';
 import { useRecipes } from '../hooks/useRecipes';
 
+import '../styles/FavoriteRecipes.css';
+
 function FavoriteRecipes() {
   const { favoriteRecipes } = useRecipes();
   const [
@@ -25,12 +27,13 @@ function FavoriteRecipes() {
     handleFilterFavoriteRecipes(filterSelected);
   }, [favoriteRecipes, filterSelected, handleFilterFavoriteRecipes]);
   return (
-    <>
+
+    <div className="div-favoriteRecipes">
       <Header />
       <MyRecipesFilterBar handleFilterRecipes={ handleFilterFavoriteRecipes } />
       <MyRecipesFeed recipes={ filteredFavoritesRecipes } />
-      <h1>FavoriteRecipes</h1>
-    </>
+    </div>
+
   );
 }
 

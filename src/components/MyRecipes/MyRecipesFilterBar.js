@@ -1,28 +1,40 @@
 import propTypes from 'prop-types';
+import mealsAndDrinks from '../../images/divers/mealsAndDrinks.svg';
 
 function MyRecipesFilterBar({ handleFilterRecipes }) {
   return (
-    <>
-      <h1>MyRecipesFilterBar</h1>
+    <nav className="my-recipes-filter-bar">
       <button
+        className="meals-drinks-btn"
         data-testid="filter-by-all-btn"
         onClick={ () => handleFilterRecipes('all') }
       >
-        All
+        <div>
+          <img src={ mealsAndDrinks } alt="icone comidas e bebidas" />
+          All
+        </div>
       </button>
       <button
+        className="meals-btn"
         data-testid="filter-by-meal-btn"
         onClick={ () => handleFilterRecipes('meal') }
       >
-        Meals
+        <div>
+          <img src="./icons/meals/All.svg" alt="icone comidas" />
+          Meals
+        </div>
       </button>
       <button
+        className="drink-btn"
         data-testid="filter-by-drink-btn"
         onClick={ () => handleFilterRecipes('drink') }
       >
-        Drinks
+        <div>
+          <img src="./icons/drinks/All.svg" alt="icone drink" />
+          Drinks
+        </div>
       </button>
-    </>
+    </nav>
   );
 }
 

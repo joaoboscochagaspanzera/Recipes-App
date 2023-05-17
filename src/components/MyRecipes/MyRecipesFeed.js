@@ -3,14 +3,13 @@ import { MyRecipesCard } from './MyRecipesCard';
 
 function MyRecipesFeed({ recipes }) {
   return (
-    <>
-      <h1>MyRecipesFeed</h1>
+    <section className="section-favoriteRecipes">
       {
         recipes.map((recipe, index) => (
           <MyRecipesCard key={ recipe.id } recipe={ recipe } index={ index } />
         ))
       }
-    </>
+    </section>
   );
 }
 

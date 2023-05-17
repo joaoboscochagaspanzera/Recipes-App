@@ -1,15 +1,14 @@
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import { ButtonCopyClipboard } from '../Shared/ButtonCopyClipboard';
 import { useRecipes } from '../../hooks/useRecipes';
+import blackHeartIcon from '../../images/divers/blackHeartIcon.svg';
 
 function MyRecipesCard({ recipe:
   { image, name, category, nationality, alcoholicOrNot, type, id }, index }) {
   const { removeRecipeFromFavorites } = useRecipes();
   return (
-    <>
-      <h1>MyRecipesCard</h1>
+    <div className="recipe-card-favorite">
       <Link to={ `/${type}s/${id}` }>
         <img
           width={ 200 }
@@ -18,27 +17,36 @@ function MyRecipesCard({ recipe:
           src={ image }
           alt={ image }
         />
-        <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
       </Link>
-      <p data-testid={ `${index}-horizontal-top-text` }>
-        { alcoholicOrNot || `${nationality} - ${category}` }
-      </p>
-      <ButtonCopyClipboard
-        testId={ `${index}-horizontal-share-btn` }
-        textToCopy={ `${window.location.origin}/${type}s/${id}` }
-        text="compartilhar"
-      />
-      <button
-        data-testid={ `${index}-horizontal-favorite-btn` }
-        src={ blackHeartIcon }
-        onClick={ () => removeRecipeFromFavorites({ recipeId: id }) }
-      >
-        <img
-          src={ blackHeartIcon }
-          alt="Icon "
-        />
-      </button>
-    </>
+      <div className="container-name-btns">
+        <div>
+          <Link to={ `/${type}s/${id}` }>
+            <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
+          </Link>
+          <p data-testid={ `${index}-horizontal-top-text` }>
+            { alcoholicOrNot || `${nationality} - ${category}` }
+          </p>
+        </div>
+        <div>
+          <ButtonCopyClipboard
+            testId={ `${index}-horizontal-share-btn` }
+            textToCopy={ `${window.location.origin}/${type}s/${id}` }
+            text=""
+          />
+          <button
+            className="favorite-btn"
+            data-testid={ `${index}-horizontal-favorite-btn` }
+            src={ blackHeartIcon }
+            onClick={ () => removeRecipeFromFavorites({ recipeId: id }) }
+          >
+            <img
+              src={ blackHeartIcon }
+              alt="botão compartilhar receita"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 
