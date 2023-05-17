@@ -2,6 +2,7 @@ import propTypes from 'prop-types';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { ButtonCopyClipboard } from '../Shared/ButtonCopyClipboard';
 import { useRecipes } from '../../hooks/useRecipes';
+import blackHeartIcon from '../../images/divers/blackHeartIcon.svg';
 
 function MyRecipesCard({ recipe:
   { image, name, category, nationality, alcoholicOrNot, type, id }, index }) {
@@ -35,11 +36,11 @@ function MyRecipesCard({ recipe:
           <button
             className="favorite-btn"
             data-testid={ `${index}-horizontal-favorite-btn` }
-            src="../icons/divers/blackHeartIcon.svg"
+            src={ blackHeartIcon }
             onClick={ () => removeRecipeFromFavorites({ recipeId: id }) }
           >
             <img
-              src="../icons/divers/blackHeartIcon.svg"
+              src={ blackHeartIcon }
               alt="botão compartilhar receita"
             />
           </button>
