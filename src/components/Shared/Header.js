@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom/cjs/react-router-dom';
 import { useRecipes } from '../../hooks/useRecipes';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
+import recipeAppIcon from '../../images/recipeAppIcon.svg';
+import logoRecipesapp from '../../images/logoRecipesapp.svg';
 import '../../styles/Header.css';
 
 function Header() {
@@ -36,6 +38,16 @@ function Header() {
   return (
     <>
       <header data-testid="header">
+        <img
+          className="recipeAppIcon"
+          src={ recipeAppIcon }
+          alt="recipe app icon"
+        />
+        <img
+          className="logoRecipesapp"
+          src={ logoRecipesapp }
+          alt="logo recipes app"
+        />
         <Link
           to="/profile"
         >
@@ -55,7 +67,6 @@ function Header() {
             />
           </button>
         )}
-        <h1 className="page-title-header">Recipes app</h1>
       </header>
       <h1 className="page-title" data-testid="page-title">{getPageTitle()}</h1>
     </>
