@@ -11,7 +11,7 @@ function RecipeDetailHeader({ recipe }) {
       <div className="recipe-category-header">
         <img
           className="category-image"
-          src={ `../icons/${recipe.type}/${recipe.category}.svg` }
+          src={ `/icons/${recipe.type}/${recipe.category}.svg` }
           alt={ recipe.category }
         />
         <span

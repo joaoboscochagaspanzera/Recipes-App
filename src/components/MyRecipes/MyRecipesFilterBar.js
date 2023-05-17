@@ -1,4 +1,5 @@
 import propTypes from 'prop-types';
+import mealsAndDrinks from '../../images/divers/mealsAndDrinks.svg';
 
 function MyRecipesFilterBar({ handleFilterRecipes }) {
   return (
@@ -9,7 +10,7 @@ function MyRecipesFilterBar({ handleFilterRecipes }) {
         onClick={ () => handleFilterRecipes('all') }
       >
         <div>
-          <img src="./icons/divers/meals-and-drinks.svg" alt="icone comidas e bebidas" />
+          <img src={ mealsAndDrinks } alt="icone comidas e bebidas" />
           All
         </div>
       </button>

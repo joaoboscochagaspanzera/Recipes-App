@@ -98,7 +98,7 @@ describe('Testes RecipeDetails.js page', () => {
 
     await waitFor(() => screen.getByTestId(RECIPE_TITLE));
 
-    const buttonStartRecipe = screen.getByText('Continue Recipe');
+    const buttonStartRecipe = screen.getByText(/Continue Recipe/i);
 
     expect(buttonStartRecipe).toBeInTheDocument();
   });
@@ -113,7 +113,7 @@ describe('Testes RecipeDetails.js page', () => {
 
     await waitFor(() => screen.getByTestId(RECIPE_TITLE));
 
-    const buttonStartRecipe = screen.getByText('Start Recipe');
+    const buttonStartRecipe = screen.getByText(/Start Recipe/i);
 
     expect(buttonStartRecipe).toBeInTheDocument();
   });
@@ -135,7 +135,7 @@ describe('Testes RecipeDetails.js page', () => {
 
     await waitFor(() => screen.getByTestId(RECIPE_TITLE));
 
-    const buttonStartRecipe = screen.getByText('Start Recipe');
+    const buttonStartRecipe = screen.getByText(/Start Recipe/i);
 
     act(() => userEvent.click(buttonStartRecipe));
 

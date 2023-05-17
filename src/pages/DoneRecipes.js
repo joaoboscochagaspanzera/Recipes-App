@@ -30,7 +30,6 @@ function DoneRecipes() {
       <Header />
       <MyRecipesFilterBar handleFilterRecipes={ handleFilterDoneRecipes } />
       <MyRecipesFeedDone recipes={ filteredDoneRecipes } />
-      <h1>DoneRecipes</h1>
     </>
   );
 }

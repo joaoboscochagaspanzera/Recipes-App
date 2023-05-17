@@ -58,6 +58,7 @@ function RecipeIngredients({ recipe, inProgress = false }) {
                     checked={ ingredientWasUsed }
                     onChange={ () => handleToggleCheckIngredient({ ingredient }) }
                   />
+                  {' '}
                   {meansure}
                   {' '}
                   {name}
