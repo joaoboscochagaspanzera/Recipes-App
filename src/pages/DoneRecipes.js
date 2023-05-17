@@ -3,6 +3,7 @@ import { Header } from '../components/Shared/Header';
 import { MyRecipesFeedDone } from '../components/MyRecipes/MyRecipesFeedDone';
 import { MyRecipesFilterBar } from '../components/MyRecipes/MyRecipesFilterBar';
 import { useRecipes } from '../hooks/useRecipes';
+import SearchBar from '../components/Recipes/SearchBar';
 
 function DoneRecipes() {
   const { doneRecipes } = useRecipes();
@@ -31,6 +32,7 @@ function DoneRecipes() {
       <MyRecipesFilterBar handleFilterRecipes={ handleFilterDoneRecipes } />
       <MyRecipesFeedDone recipes={ filteredDoneRecipes } />
       <h1>DoneRecipes</h1>
+      <SearchBar />
     </>
   );
 }

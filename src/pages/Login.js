@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { useCallback } from 'react';
 import { useForm } from '../hooks/useForm';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import '../styles/Login.css';
+import Recipes from '../images/recipeslogo.svg';
+import Tomate from '../images/tomate.svg';
 
 function Login() {
   const inputEmail = useForm();
@@ -21,11 +24,24 @@ function Login() {
 
   return (
     <div className="login">
-      <h1>
-        LOGIN
-      </h1>
-      <form>
+      <div className="logo-wrapper">
+        <img
+          className="recipes-logo"
+          src={ Recipes }
+          alt="logo recipes"
+          title="logo recipes"
+        />
+        <img
+          className="tomate-logo"
+          src={ Tomate }
+          alt="logo tomate"
+          title="logo tomate"
+        />
+      </div>
+      <form className="form">
+        <h1 className="login-h1">LOGIN</h1>
         <input
+          className="email"
           data-testid="email-input"
           type="email"
           placeholder="Email"
@@ -33,6 +49,7 @@ function Login() {
           { ...inputEmail }
         />
         <input
+          className="password"
           data-testid="password-input"
           type="password"
           placeholder="Password"
@@ -40,6 +57,7 @@ function Login() {
         />
         <Link to="/meals">
           <button
+            className="bttn"
             data-testid="login-submit-btn"
             type="submit"
             disabled={ !isValid }
