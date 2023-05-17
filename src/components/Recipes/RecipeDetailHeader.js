@@ -6,7 +6,6 @@ import { ButtonFavoriteRecipe } from './ButtonFavoriteRecipe';
 import '../../styles/RecipeDetailHeader.css';
 
 function RecipeDetailHeader({ recipe }) {
-  console.log(recipe.type, recipe.category);
   return (
     <>
       <section className="recipe-detail-header">

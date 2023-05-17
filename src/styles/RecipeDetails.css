@@ -1,0 +1,28 @@
+.start-recipe-btn {
+  position: fixed;
+  width: 336px;
+  height: 40px;
+  left: 12px;
+  bottom: 0px;
+
+  background: #FCC436;
+  border-radius: 5px;
+  border: none;
+
+  text-decoration: #FFFFFF;
+  
+  margin-bottom: 10px;
+}
+
+.recipe-video h2 {
+  height: auto;
+
+  font-family: 'Epilogue';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 30px;
+  line-height: 20px;
+  padding: 15px;
+
+  color: #1A1B1C;
+}

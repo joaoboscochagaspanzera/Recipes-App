@@ -3,6 +3,8 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 
 import { RecipeDetailHeader } from '../components/Recipes/RecipeDetailHeader';
 
+import '../styles/RecipeDetails.css';
+
 import {
   getRecipeDetail,
   getRecommendedRecipesType,
@@ -65,28 +67,24 @@ function RecipeDetails() {
         <RecipeIngredients recipe={ recipe } />
         <RecipeInstruction recipe={ recipe } />
         {recipeType === 'meals' && (
-          <>
+          <div className="recipe-video">
             <h2>Video</h2>
             <embed
               type="video/webm"
               src={ recipe.video_url }
-              width="336px"
-              height="205.09px"
+              width="360px"
+              height="202.5px"
               data-testid="video"
             />
-          </>
+          </div>
         )}
         <h2>Recommended</h2>
         <RecommendedRecipes type={ recommendedRecipesType } />
         { !recipeIsFinished && (
           <button
+            className="start-recipe-btn"
             data-testid="start-recipe-btn"
             onClick={ handleClickStartRecipe }
-            style={ {
-              position: 'fixed',
-              bottom: 0,
-              right: '50%',
-            } }
           >
             { recipeIsInProgress ? 'Continue Recipe' : 'Start Recipe'}
           </button>
