@@ -64,8 +64,10 @@ function RecipeDetails() {
     recipe && (
       <>
         <RecipeDetailHeader recipe={ recipe } />
-        <RecipeIngredients recipe={ recipe } />
-        <RecipeInstruction recipe={ recipe } />
+        <div className="recipe-container">
+          <RecipeIngredients recipe={ recipe } />
+          <RecipeInstruction recipe={ recipe } />
+        </div>
         {recipeType === 'meals' && (
           <div className="recipe-video">
             <h2>Video</h2>
@@ -86,7 +88,7 @@ function RecipeDetails() {
             data-testid="start-recipe-btn"
             onClick={ handleClickStartRecipe }
           >
-            { recipeIsInProgress ? 'Continue Recipe' : 'Start Recipe'}
+            { recipeIsInProgress ? 'CONTINUE RECIPE' : 'START RECIPE'}
           </button>
         )}
 

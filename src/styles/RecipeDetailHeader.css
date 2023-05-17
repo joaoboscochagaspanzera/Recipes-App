@@ -2,7 +2,6 @@
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  /* gap: 7px; */
   justify-content: center;
   background-color: red;
 }
@@ -40,7 +39,6 @@
   left: 53.01px;
   top: 26px;
 
-  font-family: 'Epilogue';
   font-style: normal;
   font-weight: 700;
   font-size: 14px;
@@ -57,9 +55,8 @@
   left: 109.01px;
   top: 81px;
 
-  font-family: 'Epilogue';
   font-style: normal;
-  font-weight: 900;
+  font-weight: 700;
   font-size: 25px;
   line-height: 20px;
   text-align: center;
@@ -82,17 +79,4 @@
   width: 90%;
   height: 90%;
   position: relative;
-}
-
-.recipe-detail-header-h2 {
-  height: auto;
-
-  font-family: 'Epilogue';
-  font-style: normal;
-  font-weight: 900;
-  font-size: 30px;
-  line-height: 20px;
-  padding: 15px;
-
-  color: #1A1B1C;
 }

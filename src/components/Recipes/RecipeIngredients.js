@@ -34,53 +34,59 @@ function RecipeIngredients({ recipe, inProgress = false }) {
   return (
     inProgress
       ? (
-        <div className="recipe-ingredients-todo">
-          { recipe.ingredients.map(({ name, meansure, id }, index) => {
-            const ingredientWasUsed = ingredientsUsed
-              .find((ingredient) => ingredient.id === id);
+        <>
+          <h2 className="recipe-detail-header-h2">Ingredients</h2>
+          <div className="recipe-ingredients-todo">
+            { recipe.ingredients.map(({ name, meansure, id }, index) => {
+              const ingredientWasUsed = ingredientsUsed
+                .find((ingredient) => ingredient.id === id);
 
-            const ingredient = { name, meansure, id };
-            return (
-              <label
-                data-testid={ `${index}-ingredient-step` }
-                key={ index }
-                style={ {
-                  textDecoration: ingredientWasUsed
-                    ? 'line-through solid rgb(0, 0, 0)'
-                    : '',
-                } }
-              >
-                <input
-                  type="checkbox"
-                  name="ingredient"
-                  checked={ ingredientWasUsed }
-                  onChange={ () => handleToggleCheckIngredient({ ingredient }) }
-                />
-                {meansure}
-                {' '}
-                {name}
-              </label>
-            );
-          })}
-        </div>
-      )
-      : (
-        <ul className="recipe-ingredients-list">
-          {recipe.ingredients.map(({ name, meansure }, index) => (
-            <li
-              key={ index }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              {meansure && (
-                <>
+              const ingredient = { name, meansure, id };
+              return (
+                <label
+                  data-testid={ `${index}-ingredient-step` }
+                  key={ index }
+                  style={ {
+                    textDecoration: ingredientWasUsed
+                      ? 'line-through solid rgb(0, 0, 0)'
+                      : '',
+                  } }
+                >
+                  <input
+                    type="checkbox"
+                    name="ingredient"
+                    checked={ ingredientWasUsed }
+                    onChange={ () => handleToggleCheckIngredient({ ingredient }) }
+                  />
                   {meansure}
                   {' '}
-                </>
-              )}
-              {name}
-            </li>
-          ))}
-        </ul>
+                  {name}
+                </label>
+              );
+            })}
+          </div>
+        </>
+      )
+      : (
+        <>
+          <h2 className="recipe-detail-header-h2">Ingredients</h2>
+          <ul className="recipe-ingredients-list">
+            {recipe.ingredients.map(({ name, meansure }, index) => (
+              <li
+                key={ index }
+                data-testid={ `${index}-ingredient-name-and-measure` }
+              >
+                {meansure && (
+                  <>
+                    {meansure}
+                    {' '}
+                  </>
+                )}
+                {name}
+              </li>
+            ))}
+          </ul>
+        </>
       )
   );
 }

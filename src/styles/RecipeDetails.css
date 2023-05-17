@@ -9,17 +9,18 @@
   border-radius: 5px;
   border: none;
 
-  text-decoration: #FFFFFF;
+  color: #FFFFFF;
+
+  font-size: 20px;
   
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 h2 {
   height: auto;
 
-  font-family: 'Epilogue';
   font-style: normal;
-  font-weight: 900;
+  font-weight: 700;
   font-size: 30px;
   line-height: 20px;
   padding: 15px;
@@ -28,7 +29,5 @@ h2 {
 }
 
 .carousel {
-  background-color: red;
-  /* height: 100vmin; */
-  margin: 0px;
+  margin-bottom: 40px;
 }

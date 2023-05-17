@@ -3,13 +3,11 @@
 .recipe-ingredients-list {
   box-sizing: border-box;
 
-  position: absolute;
   padding: 10px;
   padding-left: 30px;
   width: 335px;
   height: auto;
-  left: 10px;
-  top: 215px;
+  margin-left: 10px;
   
   background: #FFFFFF;
   border: 0.554397px solid #B1B1B1;
@@ -22,12 +20,9 @@
 .recipe-ingredients-todo {
   box-sizing: border-box;
 
-  position: absolute;
   padding: 10px;
   width: 335px;
   height: auto;
-  left: 10px;
-  top: 215px;
   
   display: flex;
   flex-direction: column;
@@ -37,4 +32,15 @@
   border-radius: 5.35144px;
 }
 
+.recipe-detail-header-h2 {
+  height: auto;
 
+
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 20px;
+  padding: 15px;
+
+  color: #1A1B1C;
+}
