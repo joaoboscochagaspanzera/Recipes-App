@@ -2,7 +2,9 @@ import { useCallback, useState } from 'react';
 import propTypes from 'prop-types';
 import copyToClipboard from 'clipboard-copy';
 
-function ButtonCopyClipboard({ text, textToCopy, testId }) {
+import shareIcon from '../../images/shareIcon.svg';
+
+function ButtonCopyClipboard({ text = '', textToCopy, testId }) {
   const [linkWasCopyToClipboard, setLinkWasCopyToClipboard] = useState(false);
   const handleClickShareButton = useCallback(() => {
     setLinkWasCopyToClipboard(true);
@@ -12,12 +14,12 @@ function ButtonCopyClipboard({ text, textToCopy, testId }) {
     <>
       <button
         style={ { border: 'none', background: 'none' } }
-        src="../icons/divers/shareIcon.svg"
+        src={ shareIcon }
         data-testid={ testId }
         onClick={ handleClickShareButton }
       >
-        <img src="../icons/divers/shareIcon.svg" alt="share icon" />
-        { text }
+        <img src={ shareIcon } alt="share icon" />
+        { text && <p>{text}</p> }
       </button>
       { linkWasCopyToClipboard && (
         <p>Link copied!</p>
@@ -27,6 +29,7 @@ function ButtonCopyClipboard({ text, textToCopy, testId }) {
 }
 
 ButtonCopyClipboard.propTypes = {
+  text: propTypes.string,
   textToCopy: propTypes.string.isRequired,
   testId: propTypes.string.isRequired,
 };
