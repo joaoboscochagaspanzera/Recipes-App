@@ -1,0 +1,29 @@
+.instructions {
+  height: auto;
+
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 20px;
+  padding: 15px;
+
+  color: #1A1B1C;
+}
+
+.recipe-instruction-container {
+  box-sizing: border-box;
+
+  padding: 10px;
+  width: 335px;
+  margin-left: 10px;
+  margin-top: 0px;
+  
+  background: #FFFFFF;
+  border: 0.554397px solid #B1B1B1;
+  border-radius: 5.35144px;
+}
+
+.recipe-container {
+  display: flex;
+  flex-wrap: wrap;
+}

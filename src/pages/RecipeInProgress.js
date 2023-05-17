@@ -1,19 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
-import { ButtonFavoriteRecipe } from '../components/Recipes/ButtonFavoriteRecipe';
 
 import { RecipeDetailHeader } from '../components/Recipes/RecipeDetailHeader';
 import { RecipeIngredients } from '../components/Recipes/RecipeIngredients';
 import { RecipeInstruction } from '../components/Recipes/RecipeInstruction';
-import { RecommendedRecipes } from '../components/Recipes/RecommendedRecipes';
-import { ButtonCopyClipboard } from '../components/Shared/ButtonCopyClipboard';
+
+import '../styles/RecipeDetails.css';
 
 import { useFetch } from '../hooks/useFetch';
 
 import {
   getRecipeDetail,
-  getRecommendedRecipesType,
   useRecipes } from '../hooks/useRecipes';
 
 function RecipeInProgress() {
@@ -36,8 +34,6 @@ function RecipeInProgress() {
       .then((data) => setRecipe(data));
   }, [fetchData, id, recipeType]);
 
-  const recommendedRecipesType = getRecommendedRecipesType({ recipeType });
-
   const usedIngredients = recipesInProgress[recipeType][id] || [];
 
   const buttonFinishRecipeIsDisabled = usedIngredients.length
@@ -55,22 +51,19 @@ function RecipeInProgress() {
         <RecipeIngredients recipe={ recipe } inProgress />
         <RecipeInstruction recipe={ recipe } />
         {recipeType === 'meals' && (
-          <embed
-            type="video/webm"
-            src={ recipe.video_url }
-            width="250"
-            height="200"
-            data-testid="video"
-          />
+          <div className="recipe-video">
+            <h2>Video</h2>
+            <embed
+              type="video/webm"
+              src={ recipe.video_url }
+              width="360px"
+              height="202.5px"
+              data-testid="video"
+            />
+          </div>
         )}
-        <RecommendedRecipes type={ recommendedRecipesType } />
-        <ButtonCopyClipboard
-          testId="share-btn"
-          text="Compartilhar"
-          textToCopy={ `${window.location.origin}/${recipeType}/${id}` }
-        />
-        <ButtonFavoriteRecipe recipe={ recipe } />
         <button
+          className="start-recipe-btn"
           disabled={ buttonFinishRecipeIsDisabled }
           data-testid="finish-recipe-btn"
           onClick={ handleClickFinishRecipe }

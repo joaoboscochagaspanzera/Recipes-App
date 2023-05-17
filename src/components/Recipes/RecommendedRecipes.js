@@ -29,13 +29,15 @@ function RecommendedRecipes({ type }) {
   });
 
   return (
-    <Carousel>
-      {chunksOfRecommendedRecipes.map((chunkRecipes, index) => (
-        <Carousel.Item key={ index }>
-          <RecipesFeed recipes={ chunkRecipes } isRecommended />
-        </Carousel.Item>
-      ))}
-    </Carousel>
+    <div className="carousel">
+      <Carousel>
+        {chunksOfRecommendedRecipes.map((chunkRecipes, index) => (
+          <Carousel.Item key={ index }>
+            <RecipesFeed recipes={ chunkRecipes } isRecommended />
+          </Carousel.Item>
+        ))}
+      </Carousel>
+    </div>
   );
 }
 

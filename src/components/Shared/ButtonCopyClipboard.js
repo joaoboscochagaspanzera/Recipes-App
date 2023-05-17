@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import copyToClipboard from 'clipboard-copy';
 import shareIcon from '../../images/divers/shareIcon.svg';
 
-function ButtonCopyClipboard({ text, textToCopy, testId }) {
+function ButtonCopyClipboard({ text = '', textToCopy, testId }) {
   const [linkWasCopyToClipboard, setLinkWasCopyToClipboard] = useState(false);
   const handleClickShareButton = useCallback(() => {
     setLinkWasCopyToClipboard(true);
@@ -12,13 +12,13 @@ function ButtonCopyClipboard({ text, textToCopy, testId }) {
   return (
     <>
       <button
-        style={ { border: 'none', background: 'white' } }
+        style={ { border: 'none', background: 'none' } }
         src={ shareIcon }
         data-testid={ testId }
         onClick={ handleClickShareButton }
       >
         <img src={ shareIcon } alt="share icon" />
-        { text }
+        { text && <p>{text}</p> }
       </button>
       { linkWasCopyToClipboard && (
         <p>Link copied!</p>
@@ -28,7 +28,7 @@ function ButtonCopyClipboard({ text, textToCopy, testId }) {
 }
 
 ButtonCopyClipboard.propTypes = {
-  text: propTypes.string.isRequired,
+  text: propTypes.string,
   textToCopy: propTypes.string.isRequired,
   testId: propTypes.string.isRequired,
 };
