@@ -1,47 +1,41 @@
 /* ANTES DE COMECAR A RECEITA */
+
 /* lista ingredientes */
 .recipe-ingredients-list {
+  background: white;
+  border: 0.554px solid #b1b1b1;
+  border-radius: 5.351px;
   box-sizing: border-box;
-
+  height: auto;
+  margin-left: 10px;
   padding: 10px;
   padding-left: 30px;
   width: 335px;
-  height: auto;
-  margin-left: 10px;
-  
-  background: #FFFFFF;
-  border: 0.554397px solid #B1B1B1;
-  border-radius: 5.35144px;
 }
 
 
 /* DEPOIS DE COMECAR A RECEITA */
+
 /* lista de ingredientes */
 .recipe-ingredients-todo {
+  background: white;
+  border: 0.554px solid #b1b1b1;
+  border-radius: 5.351px;
   box-sizing: border-box;
-
-  padding: 10px;
-  width: 335px;
-  height: auto;
-  margin-left: 10px;
-  
   display: flex;
   flex-direction: column;
-
-  background: #FFFFFF;
-  border: 0.554397px solid #B1B1B1;
-  border-radius: 5.35144px;
+  height: auto;
+  margin-left: 10px;
+  padding: 10px;
+  width: 335px;
 }
 
 .recipe-detail-header-h2 {
-  height: auto;
-
-
+  color: #1a1b1c;
+  font-size: 30px;
   font-style: normal;
   font-weight: 700;
-  font-size: 30px;
+  height: auto;
   line-height: 20px;
   padding: 15px;
-
-  color: #1A1B1C;
 }

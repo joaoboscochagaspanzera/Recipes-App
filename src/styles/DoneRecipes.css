@@ -1,12 +1,10 @@
 h1 {
+  color: #41197f;
+  font-size: 20px;
   font-style: normal;
   font-weight: 900;
-  font-size: 20px;
-  line-height: 20px;
-  
-  text-align: center;
   letter-spacing: 0.105em;
+  line-height: 20px;
+  text-align: center;
   text-transform: uppercase;
-  
-  color: #41197F;
 }

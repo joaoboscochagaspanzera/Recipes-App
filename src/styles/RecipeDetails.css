@@ -1,31 +1,25 @@
 .start-recipe-btn {
-  position: fixed;
-  width: 336px;
+  background: #fcc436;
+  border: none;
+  border-radius: 5px;
+  bottom: 0;
+  color: white;
+  font-size: 20px;
   height: 40px;
   left: 12px;
-  bottom: 0px;
-
-  background: #FCC436;
-  border-radius: 5px;
-  border: none;
-
-  color: #FFFFFF;
-
-  font-size: 20px;
-  
   margin-bottom: 20px;
+  position: fixed;
+  width: 336px;
 }
 
 h2 {
-  height: auto;
-
+  color: #1a1b1c;
+  font-size: 30px;
   font-style: normal;
   font-weight: 700;
-  font-size: 30px;
+  height: auto;
   line-height: 20px;
   padding: 15px;
-
-  color: #1A1B1C;
 }
 
 .carousel {
