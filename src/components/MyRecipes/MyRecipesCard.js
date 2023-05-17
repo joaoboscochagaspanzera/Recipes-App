@@ -23,7 +23,6 @@ function MyRecipesCard({ recipe:
       <p data-testid={ `${index}-horizontal-top-text` }>
         { alcoholicOrNot || `${nationality} - ${category}` }
       </p>
-      <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
       <ButtonCopyClipboard
         testId={ `${index}-horizontal-share-btn` }
         textToCopy={ `${window.location.origin}/${type}s/${id}` }

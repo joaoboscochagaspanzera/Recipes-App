@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import SearchBar from '../components/Recipes/SearchBar';
+
 import { Footer } from '../components/Shared/Footer';
 import { Header } from '../components/Shared/Header';
 import { RecipesFilterBar } from '../components/Recipes/RecipesFilterBar';
 import { RecipesFeed } from '../components/Recipes/RecipesFeed';
+import { SearchBar } from '../components/Shared/SearchBar';
 
 import { useFetch } from '../hooks/useFetch';
 import {
@@ -12,7 +13,6 @@ import {
   useRecipes,
   getBaseUrl,
 } from '../hooks/useRecipes';
-import { SearchBar } from '../components/Shared/SearchBar';
 
 function Recipes() {
   const { pathname } = useLocation();
@@ -49,7 +49,6 @@ function Recipes() {
       <RecipesFilterBar />
       <RecipesFeed recipes={ recipes[recipeType] } />
       <Footer />
-      <SearchBar />
     </>
   );
 }
